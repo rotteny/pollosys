@@ -1,0 +1,11 @@
+.active-item {
+    border-left: 8px solid var(--ion-color-primary);
+}
+
+.sub-menu > ion-item.item{
+    padding-left: 15px;
+}
+
+.btn-sair > .item-native {
+    background-color: #a7a7a7;
+}
