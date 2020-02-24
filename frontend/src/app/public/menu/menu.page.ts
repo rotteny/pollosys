@@ -2,6 +2,8 @@ import { Router, RouterEvent } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -10,12 +12,6 @@ import { AlertController } from '@ionic/angular';
 export class MenuPage implements OnInit {
 
   pages = {
-    root: [
-        {
-          title: 'Home',
-          url: '/menu/home'
-        },
-      ],
     cadastros: [
         {
           title: 'Clientes',
@@ -43,7 +39,7 @@ export class MenuPage implements OnInit {
         },
         {
           title: 'Produtos',
-          url: '/menu/Produtos'
+          url: '/menu/produtos'
         },
         {
           title: 'Documentos Financeiros',
@@ -84,13 +80,15 @@ export class MenuPage implements OnInit {
   isOpenFin: 0;
   isOpenSup: 0;
 
-  constructor(private router: Router, private alertCtrl: AlertController) { 
+  constructor(private router: Router, private alertCtrl: AlertController, public screenOrientation: ScreenOrientation) { 
+    // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     this.router.events.subscribe((event: RouterEvent) => {
       this.selectedPath = event.url;
     });
   }
 
   ngOnInit() {
+    this.selectedPath = this.router.url;
   }
 
   async presentAlertConfirm() {

@@ -11,7 +11,13 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
 
-  constructor(public keyboard: Keyboard, private router: Router) { }
+  constructor(public keyboard: Keyboard, private router: Router) { 
+    window.addEventListener('keyboardDidShow', (event) => {
+        // Describe your logic which will be run each time when keyboard is about to be shown.
+        alert('teste');
+        console.log(event);
+    });
+  }
 
   ngOnInit() { }
 
@@ -28,4 +34,5 @@ export class LoginPage implements OnInit {
   esqueciSenha() { 
     this.router.navigateByUrl('/menu/home');
   }
+
 }
