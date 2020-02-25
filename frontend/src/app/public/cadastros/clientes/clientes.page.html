@@ -16,13 +16,13 @@
   <ion-searchbar placeholder="Todos" animated="true"></ion-searchbar>
 
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let item of [].constructor(10)" >
       <ion-label>
         <h2>Ana Cristina</h2>
         <h3>98158-8121</h3>
       </ion-label>
       <div>
-        <ion-button class="btn-secondary" (click)="atualiziarAlertForm()">
+        <ion-button class="btn-secondary" (click)="atualiziarForm()">
           <ion-icon name="person-sharp"></ion-icon>
         </ion-button>
         <ion-button class="btn-danger" (click)="excluirAlertConfirm()">
@@ -30,7 +30,7 @@
         </ion-button>
       </div>
     </ion-item>
-
+<!-- 
     <ion-item>
       <ion-label>
         <h2>Amanda Nakata</h2>
@@ -74,6 +74,6 @@
           <ion-icon name="trash-sharp" color="light"></ion-icon>
         </ion-button>
       </div>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 </ion-content>

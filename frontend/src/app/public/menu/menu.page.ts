@@ -75,10 +75,10 @@ export class MenuPage implements OnInit {
   };
 
   selectedPath: string;
-  isOpenCad: 0;
-  isOpenCom: 0;
-  isOpenFin: 0;
-  isOpenSup: 0;
+  isOpenCad:boolean = false;
+  isOpenCom:boolean = false;
+  isOpenFin:boolean = false;
+  isOpenSup:boolean = false;
 
   constructor(private router: Router, private alertCtrl: AlertController, public screenOrientation: ScreenOrientation) { 
     // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);

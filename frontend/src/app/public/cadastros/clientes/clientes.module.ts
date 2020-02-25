@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ClientesPageRoutingModule } from './clientes-routing.module';
 
 import { ClientesPage } from './clientes.page';
+import { FormClientesComponent } from './form-clientes/form-clientes.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ClientesPage } from './clientes.page';
     IonicModule,
     ClientesPageRoutingModule
   ],
-  declarations: [ClientesPage]
+  declarations: [ClientesPage, FormClientesComponent],
+  entryComponents: [FormClientesComponent]
 })
 export class ClientesPageModule {}

@@ -1,5 +1,6 @@
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { FormClientesComponent } from './form-clientes/form-clientes.component';
 
 @Component({
   selector: 'app-clientes',
@@ -8,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientesPage implements OnInit {
 
-  constructor(private alertCtrl: AlertController) { }
+  constructor(
+      private alertCtrl: AlertController,
+      private modalCtrl: ModalController
+    ) { }
 
   ngOnInit() {
   }
@@ -46,90 +50,49 @@ export class ClientesPage implements OnInit {
     await alert.present();
   }
 
+  async incluirClienteModal() {
+    const modal = await this.modalCtrl.create({
+      component: FormClientesComponent
+    });
+    modal.present();
+  }
+
   async incluirAlertForm() {
     let form = await this.alertCtrl.create({
       header: 'Novo',
+      message: 'Informe o CPF/CNPJ do novo cliente',
       inputs: [
-        {
-          name: 'nome',
-          type: 'text',
-          placeholder: 'Nome do Cliente'
-        },
         {
           name: 'documento',
           type: 'text',
           placeholder: 'CPF/CNPJ'
         },
-        {
-          name: 'telefone',
-          type: 'text',
-          placeholder: '(dd)9xxxx-xxxx'
-        },
-        {
-          name: 'email',
-          type: 'text',
-          placeholder: 'E-mail(opcional)'
-        },  
       ],
       buttons: [
         {
-          text: 'Calcelar',
-          role: 'cancel',
-          handler: () => {}
-        }, {
-          text: 'Salvar',
+          text: 'Novo',
           handler: () => {
-            this.messageAlertError("Methodo não implementado ainda.");
+            /*valida documento e busca pelos dados da pessoa se ja foi criado*/
+            this.incluirClienteModal();
+          }
+        }, {
+          text: 'Buscar',
+          handler: () => {
+            /*valida documento e busca pelos dados da pessoa se ja foi criado*/
+            this.messageAlertError("O documento informado não foi encontrado. Methodo não implementado ainda.");
             return false;
           }
+        }, {
+          text: 'Calcelar',
+          role: 'cancel'
         }
       ]
     });
     await form.present();
   }
 
-  async atualiziarAlertForm() {
-    let form = await this.alertCtrl.create({
-      header: 'Atualizar',
-      inputs: [
-        {
-          name: 'nome',
-          type: 'text',
-          placeholder: 'Nome do Cliente',
-          value: 'Ana Cristina'
-        },
-        {
-          name: 'documento',
-          type: 'text',
-          placeholder: 'CPF/CNPJ',
-          value: '12345678901'
-        },
-        {
-          name: 'telefone',
-          type: 'text',
-          placeholder: 'Telefone',
-          value: '981588121'
-        },
-        {
-          name: 'email',
-          type: 'text',
-          placeholder: 'E-mail (opcional)'
-        },  
-      ],
-      buttons: [
-        {
-          text: 'Calcelar',
-          role: 'cancel',
-          handler: () => {}
-        }, {
-          text: 'Salvar',
-          handler: () => {
-            this.messageAlertError("Methodo não implementado ainda.");
-            return false;
-          }
-        }
-      ]
-    });
-    await form.present();
+  async atualiziarForm() {
+    /* busca pelos dados da pessoa */
+    this.incluirClienteModal();
   }
 }
