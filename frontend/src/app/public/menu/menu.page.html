@@ -9,12 +9,12 @@
     <ion-list>
       <ion-menu-toggle>
         <ion-item routerLink="/menu/home" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/menu/home'">
-          <ion-icon name="home-outline" color="primary" slot="start"></ion-icon> Home
+          <ion-icon name="home-sharp" color="primary" slot="start"></ion-icon> Home
         </ion-item>
       </ion-menu-toggle>
       
       <ion-item lines="none" (click)="isOpenCad === 1 ? isOpenCad = 0 : isOpenCad = 1" class="btn-menu">
-        <ion-icon name="construct-outline" color="primary" slot="start"></ion-icon>Cadastros<ion-icon slot="end" [name]="isOpenCad? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+        <ion-icon name="construct-sharp" color="primary" slot="start"></ion-icon>Cadastros<ion-icon slot="end" [name]="isOpenCad? 'chevron-down-sharp' : 'chevron-forward-sharp'"></ion-icon>
       </ion-item>
       <ion-menu-toggle [hidden]="!isOpenCad" class="sub-menu">
         <ion-item [routerLink]="p.url" [class.active-item]="selectedPath === p.url" lines="none" *ngFor="let p of pages.cadastros">
@@ -23,7 +23,7 @@
       </ion-menu-toggle>
 
       <ion-item lines="none" (click)="isOpenCom === 1 ? isOpenCom = 0 : isOpenCom = 1" class="btn-menu">
-        <ion-icon name="briefcase-outline" color="primary" slot="start"></ion-icon>Comercial<ion-icon slot="end" [name]="isOpenCom? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+        <ion-icon name="briefcase-sharp" color="primary" slot="start"></ion-icon>Comercial<ion-icon slot="end" [name]="isOpenCom? 'chevron-down-sharp' : 'chevron-forward-sharp'"></ion-icon>
       </ion-item>
       <ion-menu-toggle [hidden]="!isOpenCom" class="sub-menu">
         <ion-item [routerLink]="p.url" [class.active-item]="selectedPath === p.url" lines="none" *ngFor="let p of pages.comercial">
@@ -32,7 +32,7 @@
       </ion-menu-toggle>
 
       <ion-item lines="none" (click)="isOpenFin === 1 ? isOpenFin = 0 : isOpenFin = 1" class="btn-menu">
-        <ion-icon name="cash-outline" color="primary" slot="start"></ion-icon>Financeiro<ion-icon slot="end" [name]="isOpenFin? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+        <ion-icon name="cash-sharp" color="primary" slot="start"></ion-icon>Financeiro<ion-icon slot="end" [name]="isOpenFin? 'chevron-down-sharp' : 'chevron-forward-sharp'"></ion-icon>
       </ion-item>
       <ion-menu-toggle [hidden]="!isOpenFin" class="sub-menu">
         <ion-item [routerLink]="p.url" [class.active-item]="selectedPath === p.url" lines="none" *ngFor="let p of pages.financeiro">
@@ -41,7 +41,7 @@
       </ion-menu-toggle>
 
       <ion-item lines="none" (click)="isOpenSup === 1 ? isOpenSup = 0 : isOpenSup = 1" class="btn-menu">
-        <ion-icon name="library-outline" color="primary" slot="start"></ion-icon>Suprimento<ion-icon slot="end" [name]="isOpenSup? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+        <ion-icon name="library-sharp" color="primary" slot="start"></ion-icon>Suprimento<ion-icon slot="end" [name]="isOpenSup? 'chevron-down-sharp' : 'chevron-forward-sharp'"></ion-icon>
       </ion-item>
       <ion-menu-toggle [hidden]="!isOpenSup" class="sub-menu">
         <ion-item [routerLink]="p.url" [class.active-item]="selectedPath === p.url" lines="none" *ngFor="let p of pages.suprimentos">
@@ -51,7 +51,7 @@
 
       <ion-menu-toggle>
         <ion-item (click)="presentAlertConfirm()" routerDirection="root" lines="full" class="btn-sair btn-menu">
-          <ion-icon name="power-outline" color="primary" slot="start"></ion-icon>Sair
+          <ion-icon name="power-sharp" color="primary" slot="start"></ion-icon>Sair
         </ion-item>
       </ion-menu-toggle>
     </ion-list> 

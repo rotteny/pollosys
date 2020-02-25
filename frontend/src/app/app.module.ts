@@ -8,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Keyboard,
     ScreenOrientation
   ],
   bootstrap: [AppComponent]

@@ -30,7 +30,6 @@
     "cordova-android": "8.1.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-dialogs": "^2.0.2",
-    "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-screen-orientation": "^3.0.2",
     "core-js": "^2.5.4",
     "es6-promise-plugin": "^4.2.2",
@@ -69,7 +68,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-dialogs": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
 
-  constructor(public keyboard: Keyboard, private router: Router) { 
+  constructor(private router: Router) { 
     window.addEventListener('keyboardDidShow', (event) => {
         // Describe your logic which will be run each time when keyboard is about to be shown.
         alert('teste');

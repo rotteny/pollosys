@@ -2,30 +2,78 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-title>Clientes</ion-title>
+      <ion-title color="primary">Clientes</ion-title>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      <ion-button (click)="incluirAlertForm()" class="btn-secondary">
+        <ion-icon name="add-circle-sharp"></ion-icon>
       </ion-button>
-
-      <ion-menu-button>
-        <ion-menu-toggle auto-hide="true">
-          <ion-item routerLink="/menu/clientes/novo" routerDirection="root" lines="none">
-            <ion-icon name="add-circle-outline" slot="start"></ion-icon> Novo
-          </ion-item>
-          <ion-item routerLink="/menu/clientes/alterar" routerDirection="root" lines="none">
-            <ion-icon name="pencil-outline" slot="start"></ion-icon>Aualizar
-          </ion-item>
-          <ion-item routerDirection="root" lines="none">
-            <ion-icon name="trash-outline" slot="start"></ion-icon>Excluir
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-menu-button>
-    </ion-buttons>    
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <img src="/assets/img/pollosys-logo.png" alt="PolloSys" class="home-logo">
+  <ion-searchbar placeholder="Todos" animated="true"></ion-searchbar>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <h2>Ana Cristina</h2>
+        <h3>98158-8121</h3>
+      </ion-label>
+      <div>
+        <ion-button class="btn-secondary" (click)="atualiziarAlertForm()">
+          <ion-icon name="person-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-danger" (click)="excluirAlertConfirm()">
+          <ion-icon name="trash-sharp" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h2>Amanda Nakata</h2>
+        <h3>98831-3040</h3>
+      </ion-label>
+      <div>
+        <ion-button class="btn-secondary">
+          <ion-icon name="person-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-danger">
+          <ion-icon name="trash-sharp" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>
+        <h2>Antonio Veloso</h2>
+        <h3>98855-3333</h3>
+      </ion-label>
+      <div>
+        <ion-button class="btn-secondary">
+          <ion-icon name="person-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-danger">
+          <ion-icon name="trash-sharp" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h2>Marta Saboia Doliveira Silva</h2>
+        <h3>(11)95501-6541</h3>
+      </ion-label>
+      <div>
+        <ion-button class="btn-secondary">
+          <ion-icon name="person-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-danger">
+          <ion-icon name="trash-sharp" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>
