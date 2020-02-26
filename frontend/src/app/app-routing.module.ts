@@ -4,7 +4,68 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./public/menu/menu.module').then( m => m.MenuPageModule)
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./public/login/login.module').then( m => m.LoginPageModule)
+  },
+  { 
+    path: 'home',
+    loadChildren: () => import('./public/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'clientes',
+    loadChildren: () => import('./public/cadastros/clientes/clientes.module').then( m => m.ClientesPageModule)
+  },
+  {
+    path: 'fornecedores',
+    loadChildren: () => import('./public/cadastros/fornecedores/fornecedores.module').then( m => m.FornecedoresPageModule)
+  },
+  {
+    path: 'transportadores',
+    loadChildren: () => import('./public/cadastros/transportadores/transportadores.module').then( m => m.TransportadoresPageModule)
+  },
+  {
+    path: 'motoristas',
+    loadChildren: () => import('./public/cadastros/motoristas/motoristas.module').then( m => m.MotoristasPageModule)
+  },
+  {
+    path: 'veiculos',
+    loadChildren: () => import('./public/cadastros/veiculos/veiculos.module').then( m => m.VeiculosPageModule)
+  },
+  {
+    path: 'tipo-movimentacao-produtos',
+    loadChildren: () => import('./public/cadastros/tipo-movimentacao-produtos/tipo-movimentacao-produtos.module').then( m => m.TipoMovimentacaoProdutosPageModule)
+  },
+  {
+    path: 'produtos',
+    loadChildren: () => import('./public/cadastros/produtos/produtos.module').then( m => m.ProdutosPageModule)
+  },
+  {
+    path: 'documentos-financeitos',
+    loadChildren: () => import('./public/cadastros/documentos-financeitos/documentos-financeitos.module').then( m => m.DocumentosFinanceitosPageModule)
+  },
+  {
+    path: 'precos',
+    loadChildren: () => import('./public/comercial/precos/precos.module').then( m => m.PrecosPageModule)
+  },
+  {
+    path: 'notas-vendas',
+    loadChildren: () => import('./public/comercial/notas-vendas/notas-vendas.module').then( m => m.NotasVendasPageModule)
+  },
+  {
+    path: 'contas-pagar',
+    loadChildren: () => import('./public/financeiro/contas-pagar/contas-pagar.module').then( m => m.ContasPagarPageModule)
+  },
+  {
+    path: 'contas-receber',
+    loadChildren: () => import('./public/financeiro/contas-receber/contas-receber.module').then( m => m.ContasReceberPageModule)
+  },
+  {
+    path: 'estoque',
+    loadChildren: () => import('./public/suprimentos/estoque/estoque.module').then( m => m.EstoquePageModule)
   },
 ];
 

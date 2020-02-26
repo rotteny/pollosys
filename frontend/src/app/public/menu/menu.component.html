@@ -8,7 +8,7 @@
   <ion-content>
     <ion-list>
       <ion-menu-toggle>
-        <ion-item routerLink="/menu/home" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/menu/home'">
+        <ion-item routerLink="/home" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/home'">
           <ion-icon name="home-sharp" color="primary" slot="start"></ion-icon> Home
         </ion-item>
       </ion-menu-toggle>
@@ -50,7 +50,7 @@
       </ion-menu-toggle>
 
       <ion-menu-toggle>
-        <ion-item (click)="presentAlertConfirm()" routerDirection="root" lines="full" class="btn-sair btn-menu">
+        <ion-item (click)="sairAlertConfirm()" routerDirection="root" lines="full" class="btn-sair btn-menu">
           <ion-icon name="power-sharp" color="primary" slot="start"></ion-icon>Sair
         </ion-item>
       </ion-menu-toggle>

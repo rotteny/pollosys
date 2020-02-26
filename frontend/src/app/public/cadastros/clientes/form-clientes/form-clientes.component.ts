@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, AlertController, IonToggle } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-form-clientes',

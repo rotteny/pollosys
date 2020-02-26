@@ -28,10 +28,10 @@ export class LoginPage implements OnInit {
   }
 
   login() { 
-    this.router.navigateByUrl('/menu/home');
+    this.router.navigateByUrl('/home');
   }
   esqueciSenha() { 
-    this.router.navigateByUrl('/menu/home');
+    this.router.navigateByUrl('/home');
   }
 
 }
