@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
         },
         {
           title: 'Tipos de Movimentação',
-          url: '/tipo-movimentacao-produtos'
+          url: '/tipos-movimentacao'
         },
         {
           title: 'Produtos',
@@ -40,7 +40,7 @@ export class MenuComponent implements OnInit {
         },
         {
           title: 'Documentos Financeiros',
-          url: '/documentos-financeitos'
+          url: '/documentos-financeiros'
         },
       ],
     comercial: [

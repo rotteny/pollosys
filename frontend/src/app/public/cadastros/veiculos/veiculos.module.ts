@@ -1,3 +1,4 @@
+import { FormVeiculosComponent } from './form-veiculos/form-veiculos.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { VeiculosPage } from './veiculos.page';
     IonicModule,
     VeiculosPageRoutingModule
   ],
-  declarations: [VeiculosPage]
+  declarations: [VeiculosPage, FormVeiculosComponent],
+  entryComponents: [FormVeiculosComponent]
 })
 export class VeiculosPageModule {}

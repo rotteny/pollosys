@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-title>Documentos Financeitos</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="incluirDocumentoFinanceiroModal()" color="primary">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <ion-searchbar placeholder="Todos" animated="true"></ion-searchbar>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <h2>RG</h2>
+        <h3>xxxxxxxxxxxxxxxxx</h3>
+      </ion-label>
+      <div>
+        <ion-button class="btn-secondary" (click)="atualiziarForm()">
+          <ion-icon name="file-tray-stacked-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-danger" (click)="excluirAlertConfirm()">
+          <ion-icon name="trash-sharp" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h2>CPF</h2>
+        <h3>xxxxxxxxxxxxxxxxx</h3>
+      </ion-label>
+      <div>
+        <ion-button class="btn-secondary" (click)="atualiziarForm()">
+          <ion-icon name="file-tray-stacked-sharp"></ion-icon>
+        </ion-button>
+        <ion-button class="btn-danger" (click)="excluirAlertConfirm()">
+          <ion-icon name="trash-sharp" color="light"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

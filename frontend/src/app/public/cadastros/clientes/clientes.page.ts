@@ -17,10 +17,6 @@ export class ClientesPage implements OnInit {
   ngOnInit() {
   }
 
-  abrirMenu() {
-    alert('Menu');  
-  }
-
   async messageAlertError(message) {
     let error = await this.alertCtrl.create({
       header: 'Erro!',

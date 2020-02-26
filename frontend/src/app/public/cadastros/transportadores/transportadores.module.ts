@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TransportadoresPageRoutingModule } from './transportadores-routing.module';
 
 import { TransportadoresPage } from './transportadores.page';
+import { FormTransportadoresComponent } from './form-transportadores/form-transportadores.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { TransportadoresPage } from './transportadores.page';
     IonicModule,
     TransportadoresPageRoutingModule
   ],
-  declarations: [TransportadoresPage]
+  declarations: [TransportadoresPage, FormTransportadoresComponent],
+  entryComponents: [FormTransportadoresComponent]
 })
 export class TransportadoresPageModule {}

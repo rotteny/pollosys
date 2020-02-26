@@ -1,3 +1,4 @@
+import { FormMotoristasComponent } from './form-motoristas/form-motoristas.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,7 @@ import { MotoristasPage } from './motoristas.page';
     IonicModule,
     MotoristasPageRoutingModule
   ],
-  declarations: [MotoristasPage]
+  declarations: [MotoristasPage, FormMotoristasComponent],
+  entryComponents: [FormMotoristasComponent]
 })
 export class MotoristasPageModule {}

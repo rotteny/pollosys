@@ -6,10 +6,6 @@ ion-item.btn-menu {
     cursor: pointer;
 }
 
-ion-item:hover {
-    --background: var(--ion-color-light) !important;
-}
-
 .sub-menu > ion-item.item{
     padding-left: 15px;
 }

@@ -36,16 +36,8 @@ const routes: Routes = [
     loadChildren: () => import('./public/cadastros/veiculos/veiculos.module').then( m => m.VeiculosPageModule)
   },
   {
-    path: 'tipo-movimentacao-produtos',
-    loadChildren: () => import('./public/cadastros/tipo-movimentacao-produtos/tipo-movimentacao-produtos.module').then( m => m.TipoMovimentacaoProdutosPageModule)
-  },
-  {
     path: 'produtos',
     loadChildren: () => import('./public/cadastros/produtos/produtos.module').then( m => m.ProdutosPageModule)
-  },
-  {
-    path: 'documentos-financeitos',
-    loadChildren: () => import('./public/cadastros/documentos-financeitos/documentos-financeitos.module').then( m => m.DocumentosFinanceitosPageModule)
   },
   {
     path: 'precos',
@@ -66,6 +58,14 @@ const routes: Routes = [
   {
     path: 'estoque',
     loadChildren: () => import('./public/suprimentos/estoque/estoque.module').then( m => m.EstoquePageModule)
+  },
+  {
+    path: 'tipos-movimentacao',
+    loadChildren: () => import('./public/cadastros/tipos-movimentacao/tipos-movimentacao.module').then( m => m.TiposMovimentacaoPageModule)
+  },
+  {
+    path: 'documentos-financeiros',
+    loadChildren: () => import('./public/cadastros/documentos-financeiros/documentos-financeiros.module').then( m => m.DocumentosFinanceirosPageModule)
   },
 ];
 
