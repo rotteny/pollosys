@@ -14,13 +14,13 @@
     </ion-fab-button>
   </ion-fab>
   
-  <ion-searchbar placeholder="Todos" animated="true"></ion-searchbar>
+  <ion-searchbar placeholder="Todos" animated="true" [(ngModel)]="queryText" (ionInput)="filterCliente($event)" clearInput></ion-searchbar>
 
   <ion-list>
-    <ion-item *ngFor="let item of [].constructor(15)" >
+    <ion-item *ngFor="let cliente of clientes" >
       <ion-label>
-        <h2>Ana Cristina</h2>
-        <h3>98158-8121</h3>
+        <h2>{{cliente.nome}}</h2>
+        <h3>{{cliente.telefone}}</h3>
       </ion-label>
       <div>
         <ion-button class="btn-secondary" (click)="atualiziarForm()">
