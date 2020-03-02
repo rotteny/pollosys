@@ -1,3 +1,10 @@
+ion-grid {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%)
+}
+
 .container {
     position: absolute;
     left: 0;
@@ -10,14 +17,6 @@
     img {
         height: 90px;
     }
-
-    &.top {
-        top: 5%;
-    }
-}
-
-ion-header {
-    display: none;
 }
 
 ion-slides {
@@ -38,4 +37,10 @@ ion-slides {
             }
         }
     }
+}
+
+ion-footer {
+    color: var(--ion-color-primary);
+    text-align: center;
+    font-size: 12px;
 }

@@ -8,7 +8,7 @@
   <ion-content>
     <ion-list>
       <ion-menu-toggle>
-        <ion-item routerLink="/home" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/home'">
+        <ion-item routerLink="/private/home" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/private/home'">
           <ion-icon name="home-sharp" color="primary" slot="start"></ion-icon> Home
         </ion-item>
       </ion-menu-toggle>
@@ -46,6 +46,12 @@
       <ion-menu-toggle [hidden]="!isOpenSup" class="sub-menu">
         <ion-item [routerLink]="p.url" [class.active-item]="selectedPath === p.url" lines="none" *ngFor="let p of pages.suprimentos">
           {{ p.title }}
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle>
+        <ion-item routerLink="/private/notas-fiscais" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/notas-fiscais'">
+          <ion-icon name="logo-edge" color="primary" slot="start"></ion-icon> Notas Fiscais Eletrônicas
         </ion-item>
       </ion-menu-toggle>
 

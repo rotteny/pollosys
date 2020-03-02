@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Acesso</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="swiper-no-swiping">
   <ion-grid fixed>
     <ion-row align-items-start class="ion-justify-content-center">
@@ -31,18 +25,19 @@
             <ion-slide>
               <div class="slide-inner ion-padding">
                 <span>Login</span>
-
-                <ion-item class="ion-margin-top" lines="none">
-                  <ion-input type="email" placeholder="E-mail"></ion-input>
-                </ion-item>
-
-                <ion-item class="ion-margin-top" lines="none">
-                  <ion-input type="password" placeholder="Senha"></ion-input>
-                </ion-item>
-
-                <ion-button class="ion-margin-top" (click)="login()" color="light" expand="block">
-                  Entrar
-                </ion-button>
+                <form (ngSubmit)="login()" >
+                  <ion-item class="ion-margin-top" lines="none">
+                    <ion-input type="email" placeholder="E-mail"></ion-input>
+                  </ion-item>
+                  
+                  <ion-item class="ion-margin-top" lines="none">
+                    <ion-input type="password" placeholder="Senha"></ion-input>
+                  </ion-item>
+                  
+                  <ion-button class="ion-margin-top" type="submit" color="light" expand="block">
+                    Entrar
+                  </ion-button>
+                </form>
               </div>
             </ion-slide>
 
@@ -50,13 +45,15 @@
               <div class="slide-inner ion-padding">
                 <span>Esqueci Senha</span>
 
-                <ion-item class="ion-margin-top" lines="none">
-                  <ion-input type="email" placeholder="E-mail"></ion-input>
-                </ion-item>
-
-                <ion-button class="ion-margin-top" (click)="esqueciSenha()" color="light" expand="block">
-                  Enviar
-                </ion-button>
+                <form (ngSubmit)="esqueciSenha()" >
+                  <ion-item class="ion-margin-top" lines="none">
+                    <ion-input type="email" placeholder="E-mail"></ion-input>
+                  </ion-item>
+                  
+                  <ion-button class="ion-margin-top" type="sumit" color="light" expand="block">
+                    Enviar
+                  </ion-button>
+                </form>
               </div>
             </ion-slide>
           </ion-slides>
@@ -69,3 +66,7 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <p>A simplicidade ao seu controle.</p>
+</ion-footer>

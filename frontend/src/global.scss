@@ -25,15 +25,18 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-img.home-logo {
+.home-logo {
     position: absolute;
     left: 0;
     top: 40%;
     right: 0;
     margin: auto;
-    z-index: 2;
     text-align: center;
-    height: 90px;
+    color: var(--ion-color-primary);
+    
+    ion-img {
+        height: 90px;
+    }
 }
 
 ion-list {
@@ -41,7 +44,6 @@ ion-list {
         --background: var(--ion-color-light) !important;
     }
 }
-
 
 ion-button.btn-secondary {
     --background: var(--ion-color-secondary);

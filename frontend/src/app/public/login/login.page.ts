@@ -1,6 +1,8 @@
+import { User } from './../../models/user';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +12,7 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
 
-  constructor(private router: Router) { 
-    window.addEventListener('keyboardDidShow', (event) => {
-        // Describe your logic which will be run each time when keyboard is about to be shown.
-        alert('teste');
-        console.log(event);
-    });
-  }
+  constructor(private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit() { }
 
@@ -28,10 +24,18 @@ export class LoginPage implements OnInit {
   }
 
   login() { 
-    this.router.navigateByUrl('/home');
+    this.authService.login('123456', JSON.stringify({
+                                                      id: 1, 
+                                                      nome: "George Rotteny", 
+                                                      email: "grotteny@hotmail.com", 
+                                                      telefone: "11990209494", 
+                                                      imagem_url: "/assets/img/cliente-logo.jpg", 
+                                                      is_admin: 0, 
+                                                      empresa_id: 1
+                                                    }), '/private/home');
   }
   esqueciSenha() { 
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/private/home');
   }
 
 }

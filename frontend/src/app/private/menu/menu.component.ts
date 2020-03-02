@@ -1,6 +1,7 @@
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,62 +12,74 @@ export class MenuComponent implements OnInit {
   pages = {
     cadastros: [
         {
+          title: 'Documentos Financeiros',
+          url: '/private/cadastros/documentos-financeiros'
+        },
+        {
+          title: 'Condições de Pagamento',
+          url: '/private/cadastros/condicoes-pagamento'
+        },
+        {
+          title: 'Preços',
+          url: '/private/cadastros/precos'
+        },
+        {
           title: 'Clientes',
-          url: '/clientes'
+          url: '/private/cadastros/clientes'
         },
         {
           title: 'Fornecedores',
-          url: '/fornecedores'
+          url: '/private/cadastros/fornecedores'
         },
         {
           title: 'Transportadores',
-          url: '/transportadores'
-        },
-        {
-          title: 'Motoristas',
-          url: '/motoristas'
+          url: '/private/cadastros/transportadores'
         },
         {
           title: 'Veículos',
-          url: '/veiculos'
+          url: '/private/cadastros/veiculos'
+        },
+        {
+          title: 'Motoristas',
+          url: '/private/cadastros/motoristas'
         },
         {
           title: 'Tipos de Movimentação',
-          url: '/tipos-movimentacao'
+          url: '/private/cadastros/tipos-movimentacao'
         },
         {
           title: 'Produtos',
-          url: '/produtos'
+          url: '/private/cadastros/produtos'
         },
         {
-          title: 'Documentos Financeiros',
-          url: '/documentos-financeiros'
+          title: 'Unidades de Medida',
+          url: '/private/cadastros/unidades-medida'
         },
       ],
     comercial: [
         {
-          title: 'Preços',
-          url: '/precos'
-        },
-        {
           title: 'Notas de Vendas',
-          url: '/notas-vendas'
+          url: '/private/comercial/notas-vendas'
         },
       ],
     financeiro: [
         {
           title: 'Contas a Pagar',
-          url: '/contas-pagar'
+          url: '/private/financeiro/contas-pagar'
         },
         {
           title: 'Contas a Receber',
-          url: '/contas-receber'
+          url: '/private/financeiro/contas-receber'
+        },
+        {
+          title: 'Extrato',
+          url: '/private/financeiro/extrato'
         },
       ],
     suprimentos: [
         {
           title: 'Estoque',
-          url: '/estoque'
+          url: '/private/suprimentos/estoque'
         },
       ]
   };
@@ -77,7 +90,7 @@ export class MenuComponent implements OnInit {
   isOpenFin:boolean = false;
   isOpenSup:boolean = false;
 
-  constructor(private router: Router, private alertCtrl: AlertController) { 
+  constructor(private router: Router, private alertCtrl: AlertController, private authService: AuthenticationService) { 
     this.router.events.subscribe((event: RouterEvent) => {
       if(event.url) this.selectedPath = event.url;
     });
@@ -99,7 +112,7 @@ export class MenuComponent implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            this.router.navigateByUrl('/login');
+            this.authService.logout('/login');
           }
         }
       ]

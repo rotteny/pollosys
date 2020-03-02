@@ -1,0 +1,58 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <form>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="stacked">Código*</ion-label>
+          <ion-input required type="text" name="codigo" [(ngModel)]="cliente.codigo"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Nome*</ion-label>
+          <ion-input required type="text" name="nome" [(ngModel)]="cliente.nome"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Pessoa Física</ion-label>
+          <ion-toggle name="tipo_pf" (ionChange)="tipoChangePf($event)" [(ngModel)]="tipoPf"></ion-toggle>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Pessoa Jurídica</ion-label>  
+          <ion-toggle name="tipo_pj" (ionChange)="tipoChangePj($event)" [(ngModel)]="tipoPj"></ion-toggle>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">CPF/CNPJ</ion-label>
+          <ion-input required type="text" name="documento" [(ngModel)]="cliente.documento"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Telefone</ion-label>
+          <ion-input type="tel" name="telefone" [(ngModel)]="cliente.telefone"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">E-mail</ion-label>
+          <ion-input type="email" name="email" [(ngModel)]="cliente.email"></ion-input>
+        </ion-item>
+      </ion-col>
+    </form>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" color="primary">Cancelar</ion-button>
+      <ion-button (click)="submitForm()" color="primary">Salvar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
