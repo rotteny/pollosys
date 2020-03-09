@@ -12,6 +12,7 @@ import { MenuComponent } from './private/menu/menu.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent],
@@ -20,6 +21,7 @@ import { IonicStorageModule } from '@ionic/storage';
            ,IonicModule.forRoot()
            ,IonicStorageModule.forRoot()
            ,AppRoutingModule
+           ,HttpClientModule
            ,ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,

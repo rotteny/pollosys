@@ -25,13 +25,13 @@
             <ion-slide>
               <div class="slide-inner ion-padding">
                 <span>Login</span>
-                <form (ngSubmit)="login()" >
+                <form (ngSubmit)="submitLogin()">
                   <ion-item class="ion-margin-top" lines="none">
-                    <ion-input type="email" placeholder="E-mail"></ion-input>
+                    <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="login.email" ></ion-input>
                   </ion-item>
                   
                   <ion-item class="ion-margin-top" lines="none">
-                    <ion-input type="password" placeholder="Senha"></ion-input>
+                    <ion-input type="password" placeholder="Senha" name="senha" [(ngModel)]="login.senha" ></ion-input>
                   </ion-item>
                   
                   <ion-button class="ion-margin-top" type="submit" color="light" expand="block">
@@ -45,7 +45,7 @@
               <div class="slide-inner ion-padding">
                 <span>Esqueci Senha</span>
 
-                <form (ngSubmit)="esqueciSenha()" >
+                <form (ngSubmit)="submitSenha()" >
                   <ion-item class="ion-margin-top" lines="none">
                     <ion-input type="email" placeholder="E-mail"></ion-input>
                   </ion-item>

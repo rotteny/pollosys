@@ -1,0 +1,13 @@
+{
+    "name": "PolloSys",
+    "short_name": "PolloSys",
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "icons": [{
+      "src": "assets/ico/logo.jpg",
+      "sizes": "128x128",
+      "type": "image/jpg"
+    }],
+    "background_color": "#ff751a",
+    "theme_color": "#ff751a"
+  }

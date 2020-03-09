@@ -1,8 +1,7 @@
-import { User } from './../../models/user';
+import { WebService } from './../../services/web.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +11,15 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class LoginPage implements OnInit {
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
 
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  login = {
+    email: 'grotteny@hotmail.com',
+    senha: '123456789'
+  }
+
+  constructor(
+    private router: Router, 
+    private wbService: WebService,
+    ) { }
 
   ngOnInit() { }
 
@@ -23,18 +30,11 @@ export class LoginPage implements OnInit {
       this.slides.slideNext();
   }
 
-  login() { 
-    this.authService.login('123456', JSON.stringify({
-                                                      id: 1, 
-                                                      nome: "George Rotteny", 
-                                                      email: "grotteny@hotmail.com", 
-                                                      telefone: "11990209494", 
-                                                      imagem_url: "/assets/img/cliente-logo.jpg", 
-                                                      is_admin: 0, 
-                                                      empresa_id: 1
-                                                    }), '/private/home');
+  submitLogin() { 
+    this.wbService.postLogin(this.login.email, this.login.senha, '/private/home');
   }
-  esqueciSenha() { 
+
+  submitSenha() { 
     this.router.navigateByUrl('/private/home');
   }
 

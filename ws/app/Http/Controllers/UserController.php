@@ -17,14 +17,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response 
      */ 
     public function login(){ 
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
+        if(Auth::attempt(['login' => request('login'), 'password' => request('senha'), 'is_ativo' => 1])){ 
             $user             = Auth::user(); 
             $success['token'] = $user->createToken(self::TOKEN_KEY)-> accessToken; 
             $success['user']  = $user;
             return response()->json(['success' => $success], 200); 
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
+            return response()->json(['message'=>'E-amil ou senha informado é inválido.'], 401); 
         } 
     }
 
@@ -33,7 +33,28 @@ class UserController extends Controller
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function register(Request $request) 
+    public function single(Request $request, $id) 
+    { 
+        if(!$user = User::find($id)) return response()->json(['error' => 'Usuário não encontrado'], 404); 
+        return response()->json(['user' => $user], 200); 
+    }
+
+    /** 
+     * Register api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function list(Request $request) 
+    { 
+        return response()->json(User::paginate(env('PAGE_SIZE', 50)), 200); 
+    }
+
+    /** 
+     * Register api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function add(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
             'name'       => 'required', 
@@ -48,9 +69,8 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']); 
         
         $user              = User::create($input); 
-        $success['token']  = $user->createToken(self::TOKEN_KEY)-> accessToken; 
-        $success['name']   = $user->name;
-        return response()->json(['success' => $success, 'user' => $user], 201); 
+        $success['user']   = $user;
+        return response()->json(['success' => $success], 201); 
     }
 
     /** 

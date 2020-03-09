@@ -12,40 +12,13 @@ import _ from 'lodash';
 })
 export class ClientesPage implements OnInit {
   clientes: Array<Cliente>;
-  todosClientes: any;
   queryText: string;
 
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
     private authService: AuthenticationService) 
-  {
-      this.queryText = '';
-      this.clientes = [
-        new Cliente({ id: 1, codigo: 'ANC', nome: 'Ana Cristina', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 2, codigo: 'BIB', nome: 'Bianca Branco', email: 'teste@teste.com', telefone: '98123-8456', tipo: 'PJ', documento: '11111111111007' }),
-        new Cliente({ id: 3, codigo: 'BAS', nome: 'Barbara Soares', email: 'teste@teste.com', telefone: '99998-8122', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 4, codigo: 'CAS', nome: 'Carlos Santos', email: 'teste@teste.com', telefone: '88258-8441', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 5, codigo: 'DAC', nome: 'Damares Cristina', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 6, codigo: 'ELR', nome: 'Eloisa Rosa', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 7, codigo: 'JAA', nome: 'Janaina Almeida', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 8, codigo: 'ROS', nome: 'Rodrigo da Silva', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 9, codigo: 'PAV', nome: 'Pablo Villar', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' }),
-        new Cliente({ id: 10, codigo: 'WAV', nome: 'Wanderson Vilela', email: 'teste@teste.com', telefone: '98158-8121', tipo: 'PF', documento: '01234567890' })  
-      ];
-      this.todosClientes = this.clientes;
-  }
-  filterCliente(cli: any) {
-    let val = cli.target.value;
-    if(val && val.trim() !=''){
-      this.clientes = _.values(this.todosClientes);
-      this.clientes = this.clientes.filter((cliente) => {
-        return (cliente.nome.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }else{
-      this.clientes = this.todosClientes;
-    }
-  }
+  { }
 
   ngOnInit() {
   }
