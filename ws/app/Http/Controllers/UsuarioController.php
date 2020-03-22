@@ -16,11 +16,10 @@ class UsuarioController extends Controller
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function login(){ 
-        if(Auth::attempt(['login' => request('login'), 'password' => request('password'), 'is_ativo' => 1])){ 
-            $usuario            = Auth::user(); 
-            $success['token']   = $usuario->createToken(self::TOKEN_KEY)-> accessToken; 
-            $usuario->empresa;
+    public function login(Request $request){ 
+        if(Auth::attempt(['login' => $request->input('login'), 'password' => $request->input('password'), 'is_ativo' => 1])){ 
+            $usuario            = Usuario::with('empresa')->find(Auth::id());
+            $success['token']   = $usuario->createToken(self::TOKEN_KEY)->accessToken; 
             $success['usuario'] = $usuario;
             return response()->json(['success' => $success], 200); 
         } 
@@ -36,7 +35,7 @@ class UsuarioController extends Controller
      */ 
     public function single(Request $request, $id) 
     { 
-        if(!$usuario = Usuario::find($id)) return response()->json(['error' => 'Usuário não encontrado'], 404); 
+        if(!$usuario = Usuario::with('empresa')->find($id)) return response()->json(['error' => 'Usuário não encontrado'], 404); 
         return response()->json(['usuario' => $usuario], 200); 
     }
 
@@ -47,7 +46,7 @@ class UsuarioController extends Controller
      */ 
     public function list(Request $request) 
     { 
-        return response()->json(Usuario::paginate(env('PAGE_SIZE', 50)), 200); 
+        return response()->json(Usuario::with('empresa')->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 
@@ -60,7 +59,6 @@ class UsuarioController extends Controller
         $validator = Validator::make($request->all(), [ 
             'login'      => 'required|unique:usuarios', 
             'password'   => 'required', 
-            'c_password' => 'required|same:password', 
             'empresa_id' => 'required', 
         ]);
         if ($validator->fails()) return response()->json(['error'=>$validator->errors()], 401);            
@@ -69,7 +67,7 @@ class UsuarioController extends Controller
         $input['password']    = bcrypt($input['password']); 
         
         $usuario              = Usuario::create($input);
-        $success['usuario']   = $usuario;
+        $success['usuario']   = Usuario::with('empresa')->find($usuario->id);
         return response()->json(['success' => $success], 201); 
     }
 
@@ -80,19 +78,19 @@ class UsuarioController extends Controller
      */ 
     public function update(Request $request, $id) 
     { 
-        if (!$usuario = Usuario::find($id)) return response()->json(['error'=>['Usuário não encontrado.']], 401);
+        if (!$usuario = Usuario::with('empresa')->find($id)) return response()->json(['error'=>['Usuário não encontrado.']], 401);
 
         $validation = [];
-        if($request->login) {
-            $usuario->login      = $request->login;
+        if($request->input("login")) {
+            $usuario->login      = $request->input("login");
             $validation['login'] = "required|unique:usuarios,login," . $usuario->id;
         }
-        if($request->password) {
-            $usuario->password   = bcrypt($request->password);
+        if($request->input("password")) {
+            $usuario->password   = bcrypt($request->input("password"));
             $validation['c_password'] = "required|same:password";
         }
-        if($request->is_ativo) {
-            $usuario->is_ativo   = $request->is_ativo;
+        if($request->input("is_ativo")) {
+            $usuario->is_ativo   = $request->input("is_ativo");
         }
 
         $validator = Validator::make($request->all(), $validation);
@@ -100,7 +98,7 @@ class UsuarioController extends Controller
         
         $usuario->save();
         $success['usuario']   = $usuario;
-        return response()->json(['success' => $success], 201);
+        return response()->json(['success' => $success], 202);
     }
 
     /** 
@@ -110,15 +108,15 @@ class UsuarioController extends Controller
      */ 
     public function self(Request $request) 
     { 
-        $usuario    = Auth::user(); 
+        $usuario = Usuario::with('empresa')->find(Auth::id());
 
         $validation = [];
-        if($request->login) {
-            $usuario->login      = $request->login;
+        if($request->input("login")) {
+            $usuario->login      = $request->input("login");
             $validation['login'] = "required|unique:usuarios,login," . $usuario->id;
         }
-        if($request->password) {
-            $usuario->password   = bcrypt($request->password);
+        if($request->input("password")) {
+            $usuario->password   = bcrypt($request->input("password"));
             $validation['c_password'] = "required|same:password";
         }
 
@@ -127,7 +125,7 @@ class UsuarioController extends Controller
         
         $usuario->save();
         $success['usuario']   = $usuario;
-        return response()->json(['success' => $success], 201);
+        return response()->json(['success' => $success], 202);
     }
 
     /** 
@@ -137,8 +135,7 @@ class UsuarioController extends Controller
      */ 
     public function details() 
     { 
-        $usuario = Auth::user(); 
-        $usuario->empresa;
+        $usuario = Usuario::with('empresa')->find(Auth::id());
         return response()->json(['success' => $usuario], 200); 
     }
 }

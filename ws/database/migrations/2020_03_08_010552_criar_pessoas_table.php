@@ -17,17 +17,26 @@ class CriarPessoasTable extends Migration
             $table->bigIncrements('id');
             $table->enum('pessoa', ['F', 'J']);
             $table->string('documento', 14);
-            $table->string('inscricao_estadual', 20);
+            $table->string('inscricao_estadual', 20)
+                ->nullable(true);
             $table->string('razao_social', 200);
-            $table->string('nome_fantazia', 200);
-            $table->string('endereco', 200);
-            $table->string('complemento', 200);
-            $table->string('bairro', 200);
-            $table->string('cidade', 200);
+            $table->string('nome_fantazia', 200)
+                ->nullable(true);
+            $table->string('endereco', 200)
+                ->nullable(true);
+            $table->string('complemento', 200)
+                ->nullable(true);
+            $table->string('bairro', 200)
+                ->nullable(true);
+            $table->string('cidade', 200)
+                ->nullable(true);
             $table->char('estado', 2);
-            $table->string('cep', 10);
-            $table->string('email', 200);
-            $table->string('telefone', 200);
+            $table->string('cep', 10)
+                ->nullable(true);
+            $table->string('email', 200)
+                ->nullable(true);
+            $table->string('telefone', 200)
+                ->nullable(true);
             $table->unsignedBigInteger('empresa_id')
                 ->nullable(false);
             $table->foreign('empresa_id', 'pressoas_empresas_fk')

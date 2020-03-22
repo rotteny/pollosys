@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             DocumentosFinanceirosTableSeeder::class,
             TabelasPrecosTableSeeder::class,
             PessoasTableSeeder::class,
-            ClientesTableSeeder::class
+            ClientesTableSeeder::class,
         ]);
     }
 }
