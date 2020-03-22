@@ -12,4 +12,17 @@ class DocumentoFinanceiro extends Model
      * @var string
      */
     protected $table = 'documentos_financeiros';
+
+    protected $fillable = [
+        'descricao', 'empresa_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 }

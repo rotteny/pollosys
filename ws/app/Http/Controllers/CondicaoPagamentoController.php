@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\CondicaoPagamento;
+use Validator;
 
 class CondicaoPagamentoController extends Controller
 {
@@ -12,10 +14,10 @@ class CondicaoPagamentoController extends Controller
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function single(Request $request) 
+    public function single(Request $request, $id) 
     { 
         $usuario = Auth::user();
-        if(!$condicaoPagemento = CondicaoPagamento::where("empresa_id", $usuario->empresa_id)->find($id)) return response()->json(['error' => 'Condição de Pagamento não encontrado'], 404); 
+        if(!$condicaoPagemento = CondicaoPagamento::where('empresa_id', $usuario->empresa_id)->find($id)) return response()->json(['error' => 'Condição de Pagamento não encontrado'], 404); 
         return response()->json(['condicaoPagemento' => $condicaoPagemento], 200); 
     }
 
@@ -27,7 +29,7 @@ class CondicaoPagamentoController extends Controller
     public function list(Request $request) 
     { 
         $usuario = Auth::user();
-        return response()->json(CondicaoPagamento::where("empresa_id", $usuario->empresa_id)->paginate(env('PAGE_SIZE', 50)), 200); 
+        return response()->json(CondicaoPagamento::where('empresa_id', $usuario->empresa_id)->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 
@@ -63,6 +65,7 @@ class CondicaoPagamentoController extends Controller
      */ 
     public function update(Request $request, $id) 
     { 
+        $usuario   = Auth::user();
         if (!$condicaoPagemento = CondicaoPagamento::find($id)) return response()->json(['error'=>['Condição de Pagamento não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 

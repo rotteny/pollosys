@@ -9,14 +9,15 @@ use Validator;
 
 class UsuarioController extends Controller
 {
-    const TOKEN_KEY = "3qLdzoPqC1";
+    const TOKEN_KEY = '3qLdzoPqC1';
 
     /** 
      * login api 
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function login(Request $request){ 
+    public function login(Request $request)
+    { 
         if(Auth::attempt(['login' => $request->input('login'), 'password' => $request->input('password'), 'is_ativo' => 1])){ 
             $usuario            = Usuario::with('empresa')->find(Auth::id());
             $success['token']   = $usuario->createToken(self::TOKEN_KEY)->accessToken; 
@@ -81,16 +82,16 @@ class UsuarioController extends Controller
         if (!$usuario = Usuario::with('empresa')->find($id)) return response()->json(['error'=>['Usuário não encontrado.']], 401);
 
         $validation = [];
-        if($request->input("login")) {
-            $usuario->login      = $request->input("login");
-            $validation['login'] = "required|unique:usuarios,login," . $usuario->id;
+        if($request->input('login')) {
+            $usuario->login      = $request->input('login');
+            $validation['login'] = 'required|unique:usuarios,login,' . $usuario->id;
         }
-        if($request->input("password")) {
-            $usuario->password   = bcrypt($request->input("password"));
-            $validation['c_password'] = "required|same:password";
+        if($request->input('password')) {
+            $usuario->password   = bcrypt($request->input('password'));
+            $validation['c_password'] = 'required|same:password';
         }
-        if($request->input("is_ativo")) {
-            $usuario->is_ativo   = $request->input("is_ativo");
+        if($request->input('is_ativo')) {
+            $usuario->is_ativo   = $request->input('is_ativo');
         }
 
         $validator = Validator::make($request->all(), $validation);
@@ -111,13 +112,13 @@ class UsuarioController extends Controller
         $usuario = Usuario::with('empresa')->find(Auth::id());
 
         $validation = [];
-        if($request->input("login")) {
-            $usuario->login      = $request->input("login");
-            $validation['login'] = "required|unique:usuarios,login," . $usuario->id;
+        if($request->input('login')) {
+            $usuario->login      = $request->input('login');
+            $validation['login'] = 'required|unique:usuarios,login,' . $usuario->id;
         }
-        if($request->input("password")) {
-            $usuario->password   = bcrypt($request->input("password"));
-            $validation['c_password'] = "required|same:password";
+        if($request->input('password')) {
+            $usuario->password   = bcrypt($request->input('password'));
+            $validation['c_password'] = 'required|same:password';
         }
 
         $validator = Validator::make($request->all(), $validation);

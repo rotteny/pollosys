@@ -11,5 +11,18 @@ class TabelaPreco extends Model
      *
      * @var string
      */
-    protected $table = 'tabelas_preco';
+    protected $table = 'tabelas_precos';
+
+    protected $fillable = [
+        'descricao', 'empresa_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 }

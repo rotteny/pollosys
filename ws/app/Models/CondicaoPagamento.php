@@ -11,5 +11,18 @@ class CondicaoPagamento extends Model
      *
      * @var string
      */
-    protected $table = 'condicoes_pagamentos';
+    protected $table = 'condicoes_pagamento';
+    
+    protected $fillable = [
+        'descricao', 'numero_parcelas', 'dia_primeira_parcela', 'empresa_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 }

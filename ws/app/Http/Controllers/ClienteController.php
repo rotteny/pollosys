@@ -18,7 +18,7 @@ class ClienteController extends Controller
      */ 
     public function single(Request $request, $id) 
     { 
-        if(!$cliente = Cliente::with('pessoa')->find($id)) return response()->json(['error' => 'Cliente não encontrado'], 404); 
+        if(!$cliente = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->find($id)) return response()->json(['error' => 'Cliente não encontrado'], 404); 
         return response()->json(['cliente' => $cliente], 200); 
     }
 
@@ -29,7 +29,7 @@ class ClienteController extends Controller
      */ 
     public function list(Request $request) 
     { 
-        return response()->json(Cliente::with('pessoa')->paginate(env('PAGE_SIZE', 50)), 200); 
+        return response()->json(Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 
@@ -88,7 +88,7 @@ class ClienteController extends Controller
             ]);
             DB::commit();
             
-            $success['cliente']   = Cliente::with("pessoa")->find($cliente->id);
+            $success['cliente']   = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->find($cliente->id);
             return response()->json(['success' => $success], 201);
         } catch (Exception $e) {
             DB::rollBack();
@@ -104,7 +104,8 @@ class ClienteController extends Controller
      */ 
     public function update(Request $request, $id) 
     { 
-        if (!$cliente = Cliente::with('pessoa')->find($id)) return response()->json(['error'=>['Cliente não encontrado.']], 401);
+        $usuario   = Auth::user();
+        if (!$cliente = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->find($id)) return response()->json(['error'=>['Cliente não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 
             // Cliente
@@ -154,7 +155,7 @@ class ClienteController extends Controller
 
             DB::commit();
             
-            $success['cliente']   = Cliente::with("pessoa")->find($cliente->id);
+            $success['cliente']   = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->find($cliente->id);
             return response()->json(['success' => $success], 202);
         } catch (Exception $e) {
             DB::rollBack();

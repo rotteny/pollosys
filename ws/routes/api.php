@@ -24,13 +24,13 @@ Route::middleware('cors')->group(function(){
         // Reenvio de senha
         Route::post('esqueciSenha', 'UsuarioController@esqueciSenha');
     
-        Route::middleware(['auth:api'])->group(function(){
+        Route::middleware(['auth:api','is_active'])->group(function(){
             Route::prefix('usuarios')->group(function(){
-                Route::get('details', 'UsuarioController@details');
-                Route::get('{id}', 'UsuarioController@single');
-                Route::get('', 'UsuarioController@list');
-                Route::post('', 'UsuarioController@add');
-                Route::put('{id}', 'UsuarioController@update');
+                Route::get('details', 'UsuarioController@details')->middleware('is_admin');
+                Route::get('{id}', 'UsuarioController@single')->middleware('is_admin');
+                Route::get('', 'UsuarioController@list')->middleware('is_admin');
+                Route::post('', 'UsuarioController@add')->middleware('is_admin');
+                Route::put('{id}', 'UsuarioController@update')->middleware('is_admin');
                 Route::put('', 'UsuarioController@self');
             });
 
@@ -61,9 +61,21 @@ Route::middleware('cors')->group(function(){
                 Route::post('', 'ClienteController@add');
                 Route::put('{id}', 'ClienteController@update');
             });
-    
-            // PESSOA
-            Route::get('pessoas/{tipo}/{documento}', 'PessoaController@single');
+
+            Route::prefix('pessoas')->group(function(){
+                Route::get('{id}', 'PessoaController@single');
+                Route::get('{documento}', 'PessoaController@documento');
+                Route::get('', 'PessoaController@list');
+                Route::post('', 'PessoaController@add');
+                Route::put('{id}', 'PessoaController@update');
+            });
+
+            Route::prefix('empresas')->middleware('is_admin')->group(function(){
+                Route::get('{id}', 'EmpresaController@single');
+                Route::get('', 'EmpresaController@list');
+                Route::post('', 'EmpresaController@add');
+                Route::put('{id}', 'EmpresaController@update');
+            });
         });
     });
 });

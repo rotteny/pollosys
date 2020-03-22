@@ -27,16 +27,7 @@ class Usuario extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+        'password', 'created_at', 'updated_at'
     ];
 
     /**
@@ -45,5 +36,15 @@ class Usuario extends Authenticatable
     public function empresa()
     {
         return $this->belongsTo('App\Models\Empresa');
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
+    }
+
+    public function isAtivo()
+    {
+        return $this->is_ativo === 1;
     }
 }

@@ -13,10 +13,18 @@ class PessoaController extends Controller
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function single(Request $request) 
+    public function single(Request $request, $id) 
     { 
         $usuario = Auth::user();
-        if(!$pessoa = Pessoa::where("empresa_id", $usuario->empresa_id)->find($id)) return response()->json(['error' => 'Pessoa não encontrado'], 404); 
+        if(!$pessoa = Pessoa::where('empresa_id', $usuario->empresa_id)->find($id)) return response()->json(['error' => 'Pessoa não encontrado'], 404); 
+        return response()->json(['pessoa' => $pessoa], 200); 
+    }
+
+    public function documento(Request $request, $documento)
+    {
+        $usuario = Auth::user();
+        if(!$pessoa = Pessoa::where([['empresa_id', $usuario->empresa_id]
+                                    ,['documento', $documento]])->first()) return response()->json(['error' => 'Pessoa não encontrado'], 404); 
         return response()->json(['pessoa' => $pessoa], 200); 
     }
 
@@ -28,7 +36,7 @@ class PessoaController extends Controller
     public function list(Request $request) 
     { 
         $usuario = Auth::user();
-        return response()->json(Pessoa::where("empresa_id", $usuario->empresa_id)->paginate(env('PAGE_SIZE', 50)), 200); 
+        return response()->json(Pessoa::where('empresa_id', $usuario->empresa_id)->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 
@@ -82,6 +90,7 @@ class PessoaController extends Controller
      */ 
     public function update(Request $request, $id) 
     { 
+        $usuario   = Auth::user();
         if (!$pessoa = Pessoa::find($id)) return response()->json(['error'=>['Pessoa não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 
@@ -113,7 +122,7 @@ class PessoaController extends Controller
         $pessoa->telefone          = $request->input('telefone');
         $pessoa->save();
             
-        $success['pessoa']   = Pessoa::with("pessoa")->find($pessoa->id);
+        $success['pessoa']   = Pessoa::find($pessoa->id);
         return response()->json(['success' => $success], 202);
     }
 }
