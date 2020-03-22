@@ -18,7 +18,10 @@ class ClienteController extends Controller
      */ 
     public function single(Request $request, $id) 
     { 
-        if(!$cliente = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->find($id)) return response()->json(['error' => 'Cliente não encontrado'], 404); 
+        if(!$cliente = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->whereHas('pessoa', function ($query) {
+                $usuario   = Auth::user();
+                $query->where('empresa_id', $usuario->empresa_id);
+            })->find($id)) return response()->json(['error' => 'Cliente não encontrado'], 404); 
         return response()->json(['cliente' => $cliente], 200); 
     }
 
@@ -29,7 +32,10 @@ class ClienteController extends Controller
      */ 
     public function list(Request $request) 
     { 
-        return response()->json(Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->paginate(env('PAGE_SIZE', 50)), 200); 
+        return response()->json(Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->whereHas('pessoa', function ($query) {
+                $usuario   = Auth::user();
+                $query->where('empresa_id', $usuario->empresa_id);
+            })->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 
@@ -105,7 +111,11 @@ class ClienteController extends Controller
     public function update(Request $request, $id) 
     { 
         $usuario   = Auth::user();
-        if (!$cliente = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->find($id)) return response()->json(['error'=>['Cliente não encontrado.']], 401);
+        if (!$cliente = Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])
+            ->whereHas('pessoa', function ($query) {
+                $usuario   = Auth::user();
+                $query->where('empresa_id', $usuario->empresa_id);
+            })->find($id)) return response()->json(['error'=>['Cliente não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 
             // Cliente

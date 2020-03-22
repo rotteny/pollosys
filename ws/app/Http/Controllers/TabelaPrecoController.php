@@ -62,7 +62,7 @@ class TabelaPrecoController extends Controller
     public function update(Request $request, $id) 
     { 
         $usuario   = Auth::user();
-        if (!$tabelaPreco = TabelaPreco::find($id)) return response()->json(['error'=>['Documento Financeiro não encontrado.']], 401);
+        if (!$tabelaPreco = TabelaPreco::where('empresa_id', $usuario->empresa_id)->find($id)) return response()->json(['error'=>['Documento Financeiro não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 
             'descricao'                 => 'required|max:200', 

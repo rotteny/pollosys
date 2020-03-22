@@ -91,7 +91,7 @@ class PessoaController extends Controller
     public function update(Request $request, $id) 
     { 
         $usuario   = Auth::user();
-        if (!$pessoa = Pessoa::find($id)) return response()->json(['error'=>['Pessoa não encontrado.']], 401);
+        if (!$pessoa = Pessoa::where('empresa_id', $usuario->empresa_id)->find($id)) return response()->json(['error'=>['Pessoa não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 
             'documento'                 => 'required|max:14|cpf_cnpj|documento_unic:' . $usuario->empresa_id . ', ' . $pessoa->id, 
