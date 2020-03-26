@@ -15,6 +15,7 @@ class CriarPessoasTable extends Migration
     {
         Schema::create('pessoas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('codigo', 20);
             $table->enum('pessoa', ['F', 'J']);
             $table->string('documento', 14);
             $table->string('inscricao_estadual', 20)
@@ -44,6 +45,7 @@ class CriarPessoasTable extends Migration
                 ->on('empresas')
                 ->onDelete('cascade');
             $table->unique(['documento','empresa_id']);
+            $table->unique(['codigo','empresa_id']);
             $table->timestamps();
         });
     }

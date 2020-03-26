@@ -1,26 +1,18 @@
 export class Pessoa {
     public id : number;
-    public nome : string;
-    public tipo : string = 'PF';
+    public codigo : string;
+    public pessoa : string = 'PF';
     public documento : string;
+    public inscricao_estadual : string;
+    public razao_social : string;
+    public nome_fantasia : string;
+    public endereco : string;
+    public complemento : string;
+    public bairro : string;
+    public cidade : string;
+    public estado : string;
+    public cep : string;
     public telefone : string;
     public email : string;
     public empresa_id : number;
-
-    constructor(origin? : any) {
-        if(origin){
-            if(typeof(origin) == "string") this.setObject(JSON.parse(origin));
-            else this.setObject(origin);
-        }
-    }
-    
-    public setObject(obj: any): void {
-        this.id         = obj.id;
-        this.nome       = obj.nome;
-        this.tipo       = obj.tipo;
-        this.documento  = obj.documento;
-        this.telefone   = obj.telefone;
-        this.email      = obj.email;
-        this.empresa_id = obj.empresa_id;
-    }
 }

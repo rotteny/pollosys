@@ -8,7 +8,7 @@ import { ModalController, AlertController } from '@ionic/angular';
   styleUrls: ['./form-clientes.component.scss'],
 })
 export class FormClientesComponent implements OnInit {
-  public cliente: Cliente = new Cliente();
+  public cliente: Cliente;
   public tipoPf: boolean = true;
   public tipoPj: boolean = false;
   constructor(
@@ -17,7 +17,7 @@ export class FormClientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.cliente.tipo == 'PJ') {
+    if(this.cliente.pessoa.pessoa == 'J') {
       this.tipoPf   = false;
       this.tipoPj   = true
     }
@@ -27,9 +27,8 @@ export class FormClientesComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  submitForm(){
+  submitForm() {
     this.alertConfirm();
-    // this.messageAlertError("Methodo não implementado ainda.");
   }
 
   async alertConfirm() {
@@ -63,20 +62,20 @@ export class FormClientesComponent implements OnInit {
 
   tipoChangePf(event: any) {
     if(event.detail.checked) {
-      this.cliente.tipo = "PF";
+      this.cliente.pessoa.pessoa = "F";
       this.tipoPj = false;
     } else {
-      this.cliente.tipo = "PJ";
+      this.cliente.pessoa.pessoa = "J";
       this.tipoPj = true;
     }
   }
 
   tipoChangePj(event: any) {
     if(event.detail.checked) {
-      this.cliente.tipo = "PJ";
+      this.cliente.pessoa.pessoa = "J";
       this.tipoPf = false;
     } else {
-      this.cliente.tipo = "PF";
+      this.cliente.pessoa.pessoa = "PF";
       this.tipoPf = true;
     }
   }

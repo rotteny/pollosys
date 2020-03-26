@@ -1,7 +1,7 @@
 export class User {
     public id : number;
     public nome : string;
-    public email : string;
+    public login : string;
     public telefone : string;
     public is_admin: boolean;
     public empresa_id: number;
@@ -17,7 +17,7 @@ export class User {
     public setObject(obj: any): void {
         this.id         = obj.id;
         this.nome       = obj.nome;
-        this.email      = obj.email;
+        this.login      = obj.login;
         this.telefone   = obj.telefone;
         this.is_admin   = obj.is_admin;
         this.empresa_id = obj.empresa_id;

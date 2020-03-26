@@ -20,11 +20,11 @@ class PessoaController extends Controller
         return response()->json(['pessoa' => $pessoa], 200); 
     }
 
-    public function documento(Request $request, $documento)
+    public function documento(Request $request, $tipo, $documento)
     {
         $usuario = Auth::user();
         if(!$pessoa = Pessoa::where([['empresa_id', $usuario->empresa_id]
-                                    ,['documento', $documento]])->first()) return response()->json(['error' => 'Pessoa não encontrado'], 404); 
+                                    ,['documento', $documento]])->doesntHave($tipo)->first()) return response()->json(['error' => 'Pessoa não encontrado'], 404); 
         return response()->json(['pessoa' => $pessoa], 200); 
     }
 

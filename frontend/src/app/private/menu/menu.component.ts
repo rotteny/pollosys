@@ -1,3 +1,4 @@
+import { Usuario } from './../../models/usuario';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
@@ -112,7 +113,16 @@ export class MenuComponent implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            this.authService.logout('/login');
+            this.authService
+              .logout()
+              .then(responses => {
+                if(!responses[0] && !responses[1]) {
+                  this.authService.authenticationState.next(false);
+                  this.authService.apiToken = null;
+                  this.authService.usuario = new Usuario;
+                  this.router.navigateByUrl('/login');
+                }
+              });
           }
         }
       ]

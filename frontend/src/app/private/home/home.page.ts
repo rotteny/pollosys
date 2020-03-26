@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
   }
 
   ionViewWillEnter(){
-    if(this.authService.user.imagem_url) this.logo = this.authService.user.imagem_url;
+    if(this.authService.usuario.empresa.imagem_url) this.logo = this.authService.usuario.empresa.imagem_url;
     else this.logo = this.logoDefault;
   }
 }

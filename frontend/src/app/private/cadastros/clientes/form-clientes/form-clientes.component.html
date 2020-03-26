@@ -11,12 +11,12 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="stacked">Código*</ion-label>
-          <ion-input required type="text" name="codigo" [(ngModel)]="cliente.codigo"></ion-input>
+          <ion-input required type="text" name="codigo" [(ngModel)]="cliente.pessoa.codigo"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="stacked">Nome*</ion-label>
-          <ion-input required type="text" name="nome" [(ngModel)]="cliente.nome"></ion-input>
+          <ion-input required type="text" name="nome" [(ngModel)]="cliente.pessoa.razao_social"></ion-input>
         </ion-item>
         
         <ion-item>
@@ -31,17 +31,42 @@
         
         <ion-item>
           <ion-label position="stacked">CPF/CNPJ</ion-label>
-          <ion-input required type="text" name="documento" [(ngModel)]="cliente.documento"></ion-input>
+          <ion-input required type="text" name="documento" [(ngModel)]="cliente.pessoa.documento"></ion-input>
         </ion-item>
         
         <ion-item>
+          <ion-label position="stacked">Endereço</ion-label>
+          <ion-input type="text" name="endereco" [(ngModel)]="cliente.pessoa.endereco"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Complemento</ion-label>
+          <ion-input type="text" name="complemento" [(ngModel)]="cliente.pessoa.complemento"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Bairro</ion-label>
+          <ion-input type="text" name="bairro" [(ngModel)]="cliente.pessoa.bairro"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Cidade</ion-label>
+          <ion-input type="text" name="cidade" [(ngModel)]="cliente.pessoa.cidade"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Estado</ion-label>
+          <ion-input type="text" name="estado" [(ngModel)]="cliente.pessoa.estado"></ion-input>
+        </ion-item>
+
+        <ion-item>
           <ion-label position="stacked">Telefone</ion-label>
-          <ion-input type="tel" name="telefone" [(ngModel)]="cliente.telefone"></ion-input>
+          <ion-input type="tel" name="telefone" [(ngModel)]="cliente.pessoa.telefone"></ion-input>
         </ion-item>
         
         <ion-item>
           <ion-label position="stacked">E-mail</ion-label>
-          <ion-input type="email" name="email" [(ngModel)]="cliente.email"></ion-input>
+          <ion-input type="email" name="email" [(ngModel)]="cliente.pessoa.email"></ion-input>
         </ion-item>
       </ion-col>
     </form>

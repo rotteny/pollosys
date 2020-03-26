@@ -64,7 +64,7 @@ Route::middleware('cors')->group(function(){
 
             Route::prefix('pessoas')->group(function(){
                 Route::get('{id}', 'PessoaController@single');
-                Route::get('{documento}', 'PessoaController@documento');
+                Route::get('{tipo}/{documento}', 'PessoaController@documento');
                 Route::get('', 'PessoaController@list');
                 Route::post('', 'PessoaController@add');
                 Route::put('{id}', 'PessoaController@update');

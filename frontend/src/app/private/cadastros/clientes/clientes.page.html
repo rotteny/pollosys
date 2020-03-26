@@ -19,24 +19,42 @@
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-searchbar placeholder="Todos" animated="true" (ionInput)="filterCliente($event)" clearInput></ion-searchbar>
   
-  <!-- <ion-searchbar placeholder="Todos" animated="true" [(ngModel)]="queryText" (ionInput)="filterCliente($event)" clearInput></ion-searchbar> -->
+  <div *ngIf="clientes">
+    <ion-list>
+      <ion-item *ngFor="let cliente of clientes; let idx = index" >
+        <ion-label>
+          <h2>{{cliente.pessoa?.codigo}} - {{cliente.pessoa?.razao_social}}</h2>
+          <h3>P{{cliente.pessoa?.pessoa}}: {{cliente.pessoa?.documento}}</h3>
+          <h3>{{cliente.pessoa?.telefone}}, {{cliente.pessoa?.email}}</h3>
+        </ion-label>
+        <div>
+          <ion-button class="btn-secondary" (click)="clienteModal(cliente, idx)">
+            <ion-icon name="person-sharp"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-danger" (click)="excluirAlertConfirm(idx)">
+            <ion-icon name="trash-sharp" color="light"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
 
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <!-- Skeleton screen -->
+<div *ngIf="!clientes">
   <ion-list>
-    <ion-item *ngFor="let cliente of clientes; let idx = index" >
+    <ion-item *ngFor="let x of [1,2,3,4,5,6,7,8,9,10]">
       <ion-label>
-        <h2>{{cliente.codigo}} - {{cliente.nome}}</h2>
-        <h3>{{cliente.tipo}}: {{cliente.documento}}</h3>
-        <h3>{{cliente.telefone}}, {{cliente.email}}</h3>
+        <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <h3><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></h3>
       </ion-label>
-      <div>
-        <ion-button class="btn-secondary" (click)="clienteModal(cliente, idx)">
-          <ion-icon name="person-sharp"></ion-icon>
-        </ion-button>
-        <ion-button class="btn-danger" (click)="excluirAlertConfirm(cliente, idx)">
-          <ion-icon name="trash-sharp" color="light"></ion-icon>
-        </ion-button>
-      </div>
     </ion-item>
   </ion-list>
+</div>
+
 </ion-content>

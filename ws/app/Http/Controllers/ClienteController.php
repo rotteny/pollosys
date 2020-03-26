@@ -32,9 +32,17 @@ class ClienteController extends Controller
      */ 
     public function list(Request $request) 
     { 
-        return response()->json(Cliente::with(['pessoa', 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'])->whereHas('pessoa', function ($query) {
+        // $where = [];
+        // if($request->input('u')) $orWhere = [['razao_social']]
+        
+        return response()->json(Cliente::with(['pessoa'/*, 'documento_financeiro', 'condicao_pagamento', 'tabela_preco'*/])->whereHas('pessoa', function ($query) {
+                
                 $usuario   = Auth::user();
                 $query->where('empresa_id', $usuario->empresa_id);
+                if(request("u")) {
+                    $query->where('razao_social', 'like', '%' . request("u") . '%');
+                    $query->orWhere('nome_fantazia', 'like', '%' . request("u") . '%');
+                }
             })->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
