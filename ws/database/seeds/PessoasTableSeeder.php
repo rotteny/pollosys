@@ -12,11 +12,12 @@ class PessoasTableSeeder extends Seeder
     public function run()
     {
         DB::table('pessoas')->insert([
+            'codigo'                => 'ABC',
             'pessoa'                => 'F',
             'documento'             => '01234567890',
             'inscricao_estadual'    => '',
             'razao_social'          => 'João Almeida Júnior',
-            'nome_fantazia'         => '',
+            'nome_fantasia'         => '',
             'endereco'              => 'Rua Casarão, 15',
             'complemento'           => 'Casa',
             'bairro'                => 'Novo Horizonte',

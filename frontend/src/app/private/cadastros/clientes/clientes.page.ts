@@ -1,11 +1,9 @@
 import { Pessoa } from './../../../models/pessoa';
 import { WebService } from './../../../services/web.service';
-import { AuthenticationService } from './../../../services/authentication.service';
 import { Cliente } from './../../../models/cliente';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormClientesComponent } from './form-clientes/form-clientes.component';
-import _ from 'lodash';
 
 @Component({
   selector: 'app-clientes',
@@ -16,12 +14,12 @@ export class ClientesPage implements OnInit {
   public onLoad : boolean = false;
   public clientes : Array<Cliente>;
   public nextPage : string;
-  public strSearch : string = null;
+  public strSearch : string;
+  public dataOrdem : string = "id|asc";
 
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
-    private authService: AuthenticationService,
     private wbService: WebService) 
   {
     this.loadClientes();
@@ -44,27 +42,19 @@ export class ClientesPage implements OnInit {
 
     let params = {};
     if(this.strSearch) params['u'] = this.strSearch;
+    if(this.dataOrdem) params['s'] = this.dataOrdem;
     
-    this.wbService.getClientes(params, nextPage).subscribe( data => {    
+    this.wbService.getClientes(params, nextPage).subscribe( response => {    
       if(!this.clientes) this.clientes = [];
-      this.clientes = this.clientes.concat(data.data as Array<Cliente>);
-      this.nextPage = data.next_page_url;
-    } , error => {
-      if(error['error'] && error['error']['message']) this.messageAlertError(error['error']['message']);
-      else this.messageAlertError("Falha interno do servidor.");
-    }).add(() => {
+      this.clientes = this.clientes.concat(response.data as Array<Cliente>);
+      this.nextPage = response.next_page_url;
+    } , response => {
+      if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
+      else this.wbService.messageAlertError("Falha interno do servidor.");
+    }, () => {
       this.onLoad = false;
       if(callback) callback();
     });
-  }
-
-  async messageAlertError(message:string) {
-    let error = await this.alertCtrl.create({
-      header: 'Erro!',
-      message: message,
-      buttons: ['Cancelar']
-    });
-    error.present();
   }
 
   async excluirAlertConfirm(index:number) {
@@ -79,7 +69,17 @@ export class ClientesPage implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            this.clientes.splice(index, 1);
+            this.wbService.presentLoading();
+            let cliente = this.clientes[index];
+            this.wbService.deleteCliente(cliente.id).subscribe( () => {    
+              this.clientes.splice(index, 1);
+            } , response => {
+              if(response['status'] == 404) this.wbService.messageAlertError("Cadastro indispónível.");
+              else if(response['error'] && response['error']['error']) this.wbService.messageAlertError(response['error']['error']);
+              else this.wbService.messageAlertError("Falha interno do servidor.");
+            } , () => {
+              this.wbService.dismissLoading();
+            });
           }
         }
       ]
@@ -96,11 +96,8 @@ export class ClientesPage implements OnInit {
 
     const { data } = await modal.onWillDismiss();
     if(data) {
-      if(!isNaN(index)) {
-         this.clientes[index] = data;
-      } else {
-        this.clientes.push(data);
-      }
+      if(!isNaN(index)) this.clientes[index] = data;
+      else this.clientes.push(data);
     }
   }
 
@@ -120,21 +117,27 @@ export class ClientesPage implements OnInit {
           text: 'Novo',
           handler: (data) => {
             let cliente = new Cliente();
-            cliente.pessoa.documento = data.documento;
             this.clienteModal(cliente);
           }
         }, {
           text: 'Buscar',
           handler: (data) => {
-            this.wbService.getPessoaDocumento('cliente',data.documento).subscribe( data => {    
+            if(!data.documento) {
+              this.wbService.messageAlertError("Documento não informado.");
+              return false;
+            }
+            this.wbService.presentLoading();
+            this.wbService.getPessoaDocumento('cliente',data.documento).subscribe( response => {    
               let cliente = new Cliente();
-              cliente.pessoa = (data.pessoa as Pessoa);
+              cliente.pessoa = (response.pessoa as Pessoa);
               this.clienteModal(cliente);
+              this.wbService.dismissLoading();
               form.dismiss();
-            } , error => {
-              if(error['status'] == 404) this.messageAlertError("Cadastro indispónível.");
-              else if(error['error'] && error['error']['error']) this.messageAlertError(error['error']['error']);
-              else this.messageAlertError("Falha interno do servidor.");
+            } , response => {
+              this.wbService.dismissLoading();
+              if(response['status'] == 404) this.wbService.messageAlertError("Cadastro indispónível.");
+              else if(response['error'] && response['error']['error']) this.wbService.messageAlertError(response['error']['error']);
+              else this.wbService.messageAlertError("Falha interno do servidor.");
             });
             return false;
           }
@@ -147,9 +150,78 @@ export class ClientesPage implements OnInit {
     await form.present();
   }
 
-  filterCliente(filter?) {
+  async ordenarAlertForm() {
+    let inputList = [
+      {
+        name: 'ordem',
+        type: 'radio',
+        label: 'Data Crescente',
+        value: 'id|asc',
+      },
+      {
+        name: 'ordem',
+        type: 'radio',
+        label: 'Data   Decrescente',
+        value: 'id|desc'
+      },
+      {
+        name: 'ordem',
+        type: 'radio',
+        label: 'Código Crescente',
+        value: 'codigo|asc',
+      },
+      {
+        name: 'ordem',
+        type: 'radio',
+        label: 'Código Decrescente',
+        value: 'codigo|desc',
+      },
+      {
+        name: 'ordem',
+        type: 'radio',
+        label: 'Nome Crescente',
+        value: 'razao_social|asc',
+      },
+      {
+        name: 'ordem',
+        type: 'radio',
+        label: 'Nome Decrescente',
+        value: 'razao_social|desc'
+      }
+    ];
+    var that = this;
+    inputList.forEach(function (obj) {
+      obj['checked'] = (obj.value == that.dataOrdem);
+    });
+    
+    let form = await this.alertCtrl.create({
+      header: 'Ordenação',
+      inputs: (inputList as Array<Object>),
+      buttons: [
+        {
+          text: 'Calcelar',
+          role: 'cancel'
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            this.dataOrdem = data;
+            this.clientes = null;
+            this.loadClientes();
+          }
+        }
+      ]
+    });
+    await form.present();
+  }
+
+  filterClientes(filter?) {
     this.clientes = null;
     this.strSearch = filter.target.value;
+    this.loadClientes();
+  }
+
+  refreshCliente() {
+    this.clientes = null;
     this.loadClientes();
   }
 }

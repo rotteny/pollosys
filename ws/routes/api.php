@@ -27,54 +27,66 @@ Route::middleware('cors')->group(function(){
         Route::middleware(['auth:api','is_active'])->group(function(){
             Route::prefix('usuarios')->group(function(){
                 Route::get('details', 'UsuarioController@details')->middleware('is_admin');
-                Route::get('{id}', 'UsuarioController@single')->middleware('is_admin');
-                Route::get('', 'UsuarioController@list')->middleware('is_admin');
-                Route::post('', 'UsuarioController@add')->middleware('is_admin');
-                Route::put('{id}', 'UsuarioController@update')->middleware('is_admin');
-                Route::put('', 'UsuarioController@self');
+                Route::get('get/{id}', 'UsuarioController@single')->middleware('is_admin');
+                Route::get('list', 'UsuarioController@list')->middleware('is_admin');
+                Route::post('add', 'UsuarioController@add')->middleware('is_admin');
+                Route::post('update/{id}', 'UsuarioController@update')->middleware('is_admin');
+                Route::post('delete/{id}', 'UsuarioController@delete')->middleware('is_admin');
+                Route::post('self', 'UsuarioController@self');
             });
 
             Route::prefix('condicoes_pagamentos')->group(function(){
-                Route::get('{id}', 'CondicaoPagamentoController@single');
-                Route::get('', 'CondicaoPagamentoController@list');
-                Route::post('', 'CondicaoPagamentoController@add');
-                Route::put('{id}', 'CondicaoPagamentoController@update');
+                Route::get('get/{id}', 'CondicaoPagamentoController@single');
+                Route::get('list', 'CondicaoPagamentoController@list');
+                Route::get('options', 'CondicaoPagamentoController@options');
+                Route::post('add', 'CondicaoPagamentoController@add');
+                Route::post('update/{id}', 'CondicaoPagamentoController@update');
+                Route::post('delete/{id}', 'CondicaoPagamentoController@delete');
             });
 
             Route::prefix('documentos_financeiros')->group(function(){
-                Route::get('{id}', 'DocumentoFinanceiroController@single');
-                Route::get('', 'DocumentoFinanceiroController@list');
-                Route::post('', 'DocumentoFinanceiroController@add');
-                Route::put('{id}', 'DocumentoFinanceiroController@update');
+                Route::get('get/{id}', 'DocumentoFinanceiroController@single');
+                Route::get('list', 'DocumentoFinanceiroController@list');
+                Route::get('options', 'DocumentoFinanceiroController@options');
+                Route::post('add', 'DocumentoFinanceiroController@add');
+                Route::post('update/{id}', 'DocumentoFinanceiroController@update');
+                Route::post('delete/{id}', 'DocumentoFinanceiroController@delete');
             });
 
             Route::prefix('tabelas_precos')->group(function(){
-                Route::get('{id}', 'TabelaPrecoController@single');
-                Route::get('', 'TabelaPrecoController@list');
-                Route::post('', 'TabelaPrecoController@add');
-                Route::put('{id}', 'TabelaPrecoController@update');
+                Route::get('get/{id}', 'TabelaPrecoController@single');
+                Route::get('list', 'TabelaPrecoController@list');
+                Route::get('options', 'TabelaPrecoController@options');
+                Route::post('add', 'TabelaPrecoController@add');
+                Route::post('update/{id}', 'TabelaPrecoController@update');
+                Route::post('delete/{id}', 'TabelaPrecoController@delete');
             });
 
             Route::prefix('clientes')->group(function(){
-                Route::get('{id}', 'ClienteController@single');
-                Route::get('', 'ClienteController@list');
-                Route::post('', 'ClienteController@add');
-                Route::put('{id}', 'ClienteController@update');
+                Route::get('get/{id}', 'ClienteController@single');
+                Route::get('list', 'ClienteController@list');
+                Route::post('add', 'ClienteController@add');
+                Route::post('update/{id}', 'ClienteController@update');
+                Route::post('delete/{id}', 'ClienteController@delete');
             });
 
             Route::prefix('pessoas')->group(function(){
-                Route::get('{id}', 'PessoaController@single');
                 Route::get('{tipo}/{documento}', 'PessoaController@documento');
-                Route::get('', 'PessoaController@list');
-                Route::post('', 'PessoaController@add');
-                Route::put('{id}', 'PessoaController@update');
+                /*
+                Route::get('get/{id}', 'PessoaController@single');
+                Route::get('list', 'PessoaController@list');
+                Route::post('add', 'PessoaController@add');
+                Route::post('update/{id}', 'PessoaController@update');
+                Route::post('delete/{id}', 'PessoaController@delete');
+                */
             });
 
             Route::prefix('empresas')->middleware('is_admin')->group(function(){
-                Route::get('{id}', 'EmpresaController@single');
-                Route::get('', 'EmpresaController@list');
-                Route::post('', 'EmpresaController@add');
-                Route::put('{id}', 'EmpresaController@update');
+                Route::get('get/{id}', 'EmpresaController@single');
+                Route::get('list', 'EmpresaController@list');
+                Route::post('add', 'EmpresaController@add');
+                Route::post('update/{id}', 'EmpresaController@update');
+                Route::post('delete/{id}', 'EmpresaController@delete');
             });
         });
     });

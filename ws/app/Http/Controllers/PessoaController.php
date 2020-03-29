@@ -22,9 +22,13 @@ class PessoaController extends Controller
 
     public function documento(Request $request, $tipo, $documento)
     {
-        $usuario = Auth::user();
+        $usuario    = Auth::user();
+        
         if(!$pessoa = Pessoa::where([['empresa_id', $usuario->empresa_id]
-                                    ,['documento', $documento]])->doesntHave($tipo)->first()) return response()->json(['error' => 'Pessoa não encontrado'], 404); 
+                                    ,['documento', $documento]])->first()) return response()->json(['error' => 'Pessoa não encontrado'], 404);
+        
+        if($pessoa->{$tipo}()->where('is_ativo',1)->count() > 0) return response()->json(['error' => 'Dados indisponíveis para cadastro'], 401);
+
         return response()->json(['pessoa' => $pessoa], 200); 
     }
 
@@ -48,26 +52,30 @@ class PessoaController extends Controller
     { 
         $usuario   = Auth::user();
         $validator = Validator::make($request->all(), [ 
+            'codigo'                    => 'required|max:3|max:10',
             'documento'                 => 'required|max:14|cpf_cnpj|documento_unic:' . $usuario->empresa_id, 
             'inscricao_estadual'        => 'max:20',
             'pessoa'                    => 'required|max:1',
             'razao_social'              => 'required|max:200',
-            'endereco'                  => 'required|max:200',
-            'complementos'              => 'required|max:200',
-            'bairro'                    => 'required|max:200',
-            'cidade'                    => 'required|max:200',
-            'estado'                    => 'required|max:2',
-            'cep'                       => 'required|max:10',
-            'email'                     => 'required|max:200',
-            'telefone'                  => 'required|max:200',
+            'nome_fantasia'             => 'max:200',
+            'endereco'                  => 'max:200',
+            'complementos'              => 'max:200',
+            'bairro'                    => 'max:200',
+            'cidade'                    => 'max:200',
+            'estado'                    => 'max:2',
+            'cep'                       => 'max:10',
+            'email'                     => 'max:200',
+            'telefone'                  => 'max:200',
         ]);
         if ($validator->fails()) return response()->json(['error'=>$validator->errors()], 401);
 
         $pessoa = Pessoa::create([
+            'codigo'                    => $request->input('codigo'),
             'documento'                 => $request->input('documento'),
             'inscricao_estadual'        => $request->input('inscricao_estadual'),
             'pessoa'                    => $request->input('pessoa'),
             'razao_social'              => $request->input('razao_social'),
+            'nome_fantasia'             => $request->input('nome_fantasia'),
             'endereco'                  => $request->input('endereco'),
             'complementos'              => $request->input('complementos'),
             'bairro'                    => $request->input('bairro'),
@@ -94,24 +102,29 @@ class PessoaController extends Controller
         if (!$pessoa = Pessoa::where('empresa_id', $usuario->empresa_id)->find($id)) return response()->json(['error'=>['Pessoa não encontrado.']], 401);
 
         $validator = Validator::make($request->all(), [ 
+            'codigo'                    => 'required|max:3|max:10',
             'documento'                 => 'required|max:14|cpf_cnpj|documento_unic:' . $usuario->empresa_id . ', ' . $pessoa->id, 
             'inscricao_estadual'        => 'max:20',
             'pessoa'                    => 'required|max:1',
             'razao_social'              => 'required|max:200',
-            'endereco'                  => 'required|max:200',
-            'complementos'              => 'required|max:200',
-            'bairro'                    => 'required|max:200',
-            'cidade'                    => 'required|max:200',
-            'estado'                    => 'required|max:2',
-            'cep'                       => 'required|max:10',
-            'email'                     => 'required|max:200',
-            'telefone'                  => 'required|max:200',
+            'nome_fantasia'             => 'max:200',
+            'endereco'                  => 'max:200',
+            'complementos'              => 'max:200',
+            'bairro'                    => 'max:200',
+            'cidade'                    => 'max:200',
+            'estado'                    => 'max:2',
+            'cep'                       => 'max:10',
+            'email'                     => 'max:200',
+            'telefone'                  => 'max:200',
         ]);
         if ($validator->fails()) return response()->json(['error'=>$validator->errors()], 401);
 
+        $pessoa->codigo            = $request->input('codigo');
         $pessoa->documento         = $request->input('documento');
         $pessoa->pessoa            = $request->input('pessoa');
+        $pessoa->inscricao_estadual= $request->input('inscricao_estadual');
         $pessoa->razao_social      = $request->input('razao_social');
+        $pessoa->nome_fantasia     = $request->input('nome_fantasia');
         $pessoa->endereco          = $request->input('endereco');
         $pessoa->complementos      = $request->input('complementos');
         $pessoa->bairro            = $request->input('bairro');

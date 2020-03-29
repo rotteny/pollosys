@@ -21,7 +21,7 @@ class CriarPessoasTable extends Migration
             $table->string('inscricao_estadual', 20)
                 ->nullable(true);
             $table->string('razao_social', 200);
-            $table->string('nome_fantazia', 200)
+            $table->string('nome_fantasia', 200)
                 ->nullable(true);
             $table->string('endereco', 200)
                 ->nullable(true);
@@ -31,7 +31,8 @@ class CriarPessoasTable extends Migration
                 ->nullable(true);
             $table->string('cidade', 200)
                 ->nullable(true);
-            $table->char('estado', 2);
+            $table->char('estado', 2)
+                ->nullable(true);   
             $table->string('cep', 10)
                 ->nullable(true);
             $table->string('email', 200)

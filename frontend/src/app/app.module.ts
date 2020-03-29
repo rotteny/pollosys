@@ -13,6 +13,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { NgxMaskIonicModule } from 'ngx-mask-ionic'
 
 @NgModule({
   declarations: [AppComponent, MenuComponent],
@@ -22,6 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
            ,IonicStorageModule.forRoot()
            ,AppRoutingModule
            ,HttpClientModule
+           ,FormsModule
+           ,NgxMaskIonicModule.forRoot()
+           ,ReactiveFormsModule
            ,ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [
     StatusBar,

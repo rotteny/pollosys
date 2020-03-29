@@ -6,7 +6,7 @@
     </ion-buttons>
 
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="ordenarAlertForm()">
         <ion-icon name="filter-sharp"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -15,19 +15,24 @@
 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="refreshCliente()" size="small">
+      <ion-icon name="refresh-sharp"></ion-icon>
+    </ion-fab-button>
+
     <ion-fab-button (click)="incluirAlertForm()" color="primary">
-      <ion-icon name="add-outline"></ion-icon>
+      <ion-icon name="add-sharp"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-searchbar placeholder="Todos" animated="true" (ionInput)="filterCliente($event)" clearInput></ion-searchbar>
+  <ion-searchbar placeholder="Todos" (ionInput)="filterClientes($event)" clearInput></ion-searchbar>
   
   <div *ngIf="clientes">
     <ion-list>
       <ion-item *ngFor="let cliente of clientes; let idx = index" >
         <ion-label>
-          <h2>{{cliente.pessoa?.codigo}} - {{cliente.pessoa?.razao_social}}</h2>
-          <h3>P{{cliente.pessoa?.pessoa}}: {{cliente.pessoa?.documento}}</h3>
-          <h3>{{cliente.pessoa?.telefone}}, {{cliente.pessoa?.email}}</h3>
+          <h2>{{cliente.pessoa.codigo}} - {{cliente.pessoa.razao_social}}</h2>
+          <h3 *ngIf="cliente.pessoa.pessoa=='F'">P{{cliente.pessoa?.pessoa}}: {{cliente.pessoa?.documento | mask: '000.000.000-00'}}</h3>
+          <h3 *ngIf="cliente.pessoa.pessoa=='J'">P{{cliente.pessoa?.pessoa}}: {{cliente.pessoa?.documento | mask: '00.000.000/0000-00'}}</h3> 
+          <h3>{{cliente.pessoa?.telefone | mask: '(00)00000-0000'}}, {{cliente.pessoa?.email}}</h3>
         </ion-label>
         <div>
           <ion-button class="btn-secondary" (click)="clienteModal(cliente, idx)">
@@ -47,7 +52,7 @@
   <!-- Skeleton screen -->
 <div *ngIf="!clientes">
   <ion-list>
-    <ion-item *ngFor="let x of [1,2,3,4,5,6,7,8,9,10]">
+    <ion-item *ngFor="let x of [1,2,3,4,5,6,7,8]">
       <ion-label>
         <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
         <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>

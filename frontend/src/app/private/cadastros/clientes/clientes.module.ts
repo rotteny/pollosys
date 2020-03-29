@@ -1,6 +1,7 @@
+import { NgxMaskIonicModule } from 'ngx-mask-ionic';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,7 +15,9 @@ import { FormClientesComponent } from './form-clientes/form-clientes.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    ClientesPageRoutingModule
+    ClientesPageRoutingModule,
+    ReactiveFormsModule,
+    NgxMaskIonicModule,
   ],
   declarations: [ClientesPage, FormClientesComponent],
   entryComponents: [FormClientesComponent]

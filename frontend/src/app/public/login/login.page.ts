@@ -30,14 +30,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() { }
 
-  private async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
-      showBackdrop: true,
-      message: 'Aguarde ...',
-    });
-    this.loading.present();
-  }
-
   segmentChanged(event: any) {
     if(event.detail.value === "login") 
       this.slides.slidePrev();
@@ -45,21 +37,12 @@ export class LoginPage implements OnInit {
       this.slides.slideNext();
   }
 
-  private async messageAlertError(message:string) {
-    let error = await this.alertCtrl.create({
-      header: 'Erro!',
-      message: message,
-      buttons: ['Cancelar']
-    });
-    error.present();
-  }
-
   submitLogin() { 
-    this.presentLoading();
+    this.wbService.presentLoading();
     this.wbService.postLogin(this.login.email, this.login.senha)
-      .subscribe( data => {    
-        var token = data['success']['token']
-          , usuario = data['success']['usuario'];
+      .subscribe( response => {    
+        var token = response['success']['token']
+          , usuario = response['success']['usuario'];
         this.authService.login(token, usuario)
         .then(() => {
           this.authService.authenticationState.next(true);
@@ -67,12 +50,11 @@ export class LoginPage implements OnInit {
           this.authService.usuario  = (usuario as Usuario);
           this.router.navigateByUrl('private/home');
         });
-      } , error => {
-        if(error['error'] && error['error']['message']) this.messageAlertError(error['error']['message']);
-        else this.messageAlertError("Falha interno do servidor.");
-      })
-      .add(() => {
-        this.loading.dismiss();
+      } , response => {
+        if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
+        else this.wbService.messageAlertError("Falha interno do servidor.");
+      } , () => {
+        this.wbService.dismissLoading();
       });
   }
 

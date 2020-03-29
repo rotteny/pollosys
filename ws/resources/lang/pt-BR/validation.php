@@ -121,6 +121,7 @@ return [
     // Parsonalizados para PolloSys
     'cpf_cnpj'             => 'O campo :attribute tem um formato inválido.',
     'documento_unic'       => 'O campo :attribute já está sendo utilizado.',
+    'codigo_unic'          => 'O campo :attribute já está sendo utilizado.',
 
     /*
     |--------------------------------------------------------------------------

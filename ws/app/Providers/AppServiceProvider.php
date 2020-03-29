@@ -29,11 +29,21 @@ class AppServiceProvider extends ServiceProvider
 
         \Validator::extend('documento_unic', function ($attribute, $value, $parameters, $validator) {   
             $where = [["documento", $value]];
-            
-            if(isset($parameters[0])) return false;
+
+            if(!isset($parameters[0])) return false;
             $where[] = ["empresa_id", $parameters[0]];
 
-            if(isset($parameters[1])) $where[] = ["id", "<>", $parameters[1]];
+            if(isset($parameters[1]) && $parameters[1]) $where[] = ["id", "<>", $parameters[1]];
+            return (\App\Models\Pessoa::where($where)->count() === 0);
+        });
+
+        \Validator::extend('codigo_unic', function ($attribute, $value, $parameters, $validator) {   
+            $where = [["codigo", $value]];
+
+            if(!isset($parameters[0])) return false;
+            $where[] = ["empresa_id", $parameters[0]];
+
+            if(isset($parameters[1]) && $parameters[1]) $where[] = ["id", "<>", $parameters[1]];
             return (\App\Models\Pessoa::where($where)->count() === 0);
         });
     }

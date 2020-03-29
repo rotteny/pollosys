@@ -1,7 +1,7 @@
 export class Pessoa {
     public id : number;
     public codigo : string;
-    public pessoa : string = 'PF';
+    public pessoa : string = 'F';
     public documento : string;
     public inscricao_estadual : string;
     public razao_social : string;

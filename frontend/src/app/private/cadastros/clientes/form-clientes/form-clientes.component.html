@@ -7,66 +7,108 @@
 
 <ion-content>
   <ion-grid fixed>
-    <form>
+    <form [formGroup]="fGroup">
       <ion-col size="12">
         <ion-item>
-          <ion-label position="stacked">Código*</ion-label>
-          <ion-input required type="text" name="codigo" [(ngModel)]="cliente.pessoa.codigo"></ion-input>
+          <ion-label color="primary" position="floating">Código*</ion-label>
+          <ion-input type="text" maxlength="10" formControlName="codigo"></ion-input>
+        </ion-item>
+        
+        <ion-radio-group formControlName="pessoa" (ionChange)="onChangePessoa($event)">
+          <ion-item>
+            <ion-label color="primary">Pessoa Física</ion-label>
+            <ion-radio slot="end" value="F"></ion-radio>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label color="primary">Pessoa Jurídica</ion-label>
+            <ion-radio slot="end" value="J"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+
+        <ion-item>
+          <ion-label color="primary">Doc. Financeiro</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" formControlName="documento_financeiro_id">
+            <ion-select-option *ngFor="let item of documentosFinanceiros" [value]="item.id">{{item.descricao}}</ion-select-option>
+          </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Nome*</ion-label>
-          <ion-input required type="text" name="nome" [(ngModel)]="cliente.pessoa.razao_social"></ion-input>
+          <ion-label color="primary">Tab. Preço</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" formControlName="tabela_preco_id">
+            <ion-select-option *ngFor="let item of tabelasPrecos" [value]="item.id">{{item.descricao}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary">Cond. Pagamento</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" formControlName="condicao_pagamento_id">
+            <ion-select-option *ngFor="let item of codicoesPagamento" [value]="item.id">{{item.descricao}}</ion-select-option>
+          </ion-select>
         </ion-item>
         
         <ion-item>
-          <ion-label>Pessoa Física</ion-label>
-          <ion-toggle name="tipo_pf" (ionChange)="tipoChangePf($event)" [(ngModel)]="tipoPf"></ion-toggle>
+          <ion-label color="primary" *ngIf="pessoa=='F'" position="floating">CPF*</ion-label>
+          <ion-label color="primary" *ngIf="pessoa=='J'" position="floating">CNPJ*</ion-label>
+          <ion-input [mask]="pessoa=='F'?'000.000.000-00':'00.000.000/0000-00'" type="text" formControlName="documento"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" *ngIf="pessoa=='F'" position="floating">Nome Completo*</ion-label>
+          <ion-label color="primary" *ngIf="pessoa=='J'" position="floating">Razão Social*</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="razao_social"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="pessoa=='J'">
+          <ion-label color="primary" position="floating">Nome Fantasia</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="nome_fantasia"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="pessoa=='J'" >
+          <ion-label color="primary" position="floating">Incrição Estadua</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="inscricao_estadual"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">Telefone</ion-label>
+          <ion-input mask="(00)00000-0000" maxlength="14" type="tel" formControlName="telefone"></ion-input>
         </ion-item>
         
         <ion-item>
-          <ion-label>Pessoa Jurídica</ion-label>  
-          <ion-toggle name="tipo_pj" (ionChange)="tipoChangePj($event)" [(ngModel)]="tipoPj"></ion-toggle>
+          <ion-label color="primary" position="floating">E-mail</ion-label>
+          <ion-input maxlength="200" type="email" formControlName="email"></ion-input>
         </ion-item>
         
         <ion-item>
-          <ion-label position="stacked">CPF/CNPJ</ion-label>
-          <ion-input required type="text" name="documento" [(ngModel)]="cliente.pessoa.documento"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="stacked">Endereço</ion-label>
-          <ion-input type="text" name="endereco" [(ngModel)]="cliente.pessoa.endereco"></ion-input>
+          <ion-label color="primary" position="floating">CEP</ion-label>
+          <ion-input mask="00000-000" maxlength="9" type="text" formControlName="cep"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Complemento</ion-label>
-          <ion-input type="text" name="complemento" [(ngModel)]="cliente.pessoa.complemento"></ion-input>
+          <ion-label color="primary" position="floating">Endereço</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="endereco"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Bairro</ion-label>
-          <ion-input type="text" name="bairro" [(ngModel)]="cliente.pessoa.bairro"></ion-input>
+          <ion-label color="primary" position="floating">Complemento</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="complemento"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Cidade</ion-label>
-          <ion-input type="text" name="cidade" [(ngModel)]="cliente.pessoa.cidade"></ion-input>
+          <ion-label color="primary" position="floating">Bairro</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="bairro"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Estado</ion-label>
-          <ion-input type="text" name="estado" [(ngModel)]="cliente.pessoa.estado"></ion-input>
+          <ion-label color="primary" position="floating">Cidade</ion-label>
+          <ion-input maxlength="200" type="text" formControlName="cidade"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Telefone</ion-label>
-          <ion-input type="tel" name="telefone" [(ngModel)]="cliente.pessoa.telefone"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="stacked">E-mail</ion-label>
-          <ion-input type="email" name="email" [(ngModel)]="cliente.pessoa.email"></ion-input>
+          <ion-label color="primary">Estado</ion-label>
+          <ion-select okText="OK" cancelText="Cancelar" formControlName="estado">
+            <ion-select-option *ngFor="let item of estados" [value]="item.sigla">{{item.nome}}</ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-col>
     </form>
@@ -77,7 +119,7 @@
   <ion-toolbar>
     <ion-buttons slot="end">
       <ion-button (click)="close()" color="primary">Cancelar</ion-button>
-      <ion-button (click)="submitForm()" color="primary">Salvar</ion-button>
+      <ion-button (click)="submitForm()" color="primary" [disabled]="!fGroup.valid">Salvar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

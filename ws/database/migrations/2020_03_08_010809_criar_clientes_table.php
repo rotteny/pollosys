@@ -21,6 +21,9 @@ class CriarClientesTable extends Migration
                 ->nullable(false);
             $table->unsignedBigInteger('condicao_pagamento_id')
                 ->nullable(false);
+            $table->smallInteger('is_ativo')
+                ->nullable(false)
+                ->default(1);
             
             $table->primary('id');
             $table->foreign('id')

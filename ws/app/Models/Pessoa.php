@@ -6,10 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pessoa extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'pessoas';
+
     protected $fillable = [
-        'documento', 'pessoa', 'inscricao_estadual', 'razao_social', 'nome_fantazia', 
+        'documento', 'pessoa', 'inscricao_estadual', 'razao_social', 'nome_fantasia', 
         'endereco', 'complemento', 'bairro', 'cidade', 'estado', 'cep', 'email',
-        'telefone'
+        'telefone', 'codigo', 'empresa_id'
     ];
 
     /**

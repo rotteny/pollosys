@@ -37,6 +37,17 @@ class TabelaPrecoController extends Controller
      * 
      * @return \Illuminate\Http\Response 
      */ 
+    public function options(Request $request) 
+    { 
+        $usuario = Auth::user();
+        return response()->json(TabelaPreco::where('empresa_id', $usuario->empresa_id)->get(), 200); 
+    }
+
+    /** 
+     * Register api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
     public function add(Request $request) 
     { 
         $usuario   = Auth::user();
