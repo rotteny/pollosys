@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-title>Documentos Financeitos</ion-title>
+      <ion-title>Tabelas de Preços</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -21,12 +21,12 @@
   
   <div *ngIf="lista">
     <ion-list>
-      <ion-item *ngFor="let documento of lista; let idx = index" >
+      <ion-item *ngFor="let preco of lista; let idx = index" >
         <ion-label>
-          <h2>{{documento.descricao}}</h2>
+          <h2>{{preco.descricao}}</h2>
         </ion-label>
         <div>
-          <ion-button class="btn-secondary" (click)="loadModal(documento, idx)">
+          <ion-button class="btn-secondary" (click)="loadModal(preco, idx)">
             <ion-icon name="file-tray-stacked-sharp"></ion-icon>
           </ion-button>
           <ion-button class="btn-danger" (click)="excluirAlertConfirm(idx)">

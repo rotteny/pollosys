@@ -16,6 +16,9 @@ class CriarDocumentosFinanceirosTable extends Migration
         Schema::create('documentos_financeiros', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('descricao', 200);
+            $table->smallInteger('is_ativo')
+                ->nullable(false)
+                ->default(1);
             $table->unsignedBigInteger('empresa_id')
                 ->nullable(false);
             $table->foreign('empresa_id', 'documentos_financeiros_empresas_fk')

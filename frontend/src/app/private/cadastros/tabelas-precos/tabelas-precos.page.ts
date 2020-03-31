@@ -1,27 +1,26 @@
-import { Pessoa } from './../../../models/pessoa';
-import { WebService } from './../../../services/web.service';
-import { Cliente } from './../../../models/cliente';
-import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { FormClientesComponent } from './form-clientes/form-clientes.component';
+import { TabelaPreco } from 'src/app/models/tabelaPreco';
+import { AlertController, ModalController } from '@ionic/angular';
+import { WebService } from 'src/app/services/web.service';
+import { FormTabelasPrecosComponent } from './form-tabelas-precos/form-tabelas-precos.component';
 
 @Component({
-  selector: 'app-clientes',
-  templateUrl: './clientes.page.html',
-  styleUrls: ['./clientes.page.scss'],
+  selector: 'app-tabelas-precos',
+  templateUrl: './tabelas-precos.page.html',
+  styleUrls: ['./tabelas-precos.page.scss'],
 })
-export class ClientesPage implements OnInit {
+export class TabelasPrecosPage implements OnInit {
   public onLoad : boolean = false;
-  public lista : Array<Cliente>;
+  public lista : Array<TabelaPreco>;
   public nextPage : string;
   public strSearch : string;
   public dataOrdem : string = "id|asc";
-
+  
   constructor(
     private alertCtrl: AlertController,
     private modalCtrl: ModalController,
-    private wbService: WebService) {
-    this.loadData();
+    private wbService: WebService) { 
+      this.loadData();
   }
 
   ngOnInit() {
@@ -43,9 +42,9 @@ export class ClientesPage implements OnInit {
     if(this.strSearch) params['u'] = this.strSearch;
     if(this.dataOrdem) params['s'] = this.dataOrdem;
     
-    this.wbService.getClientes(params, nextPage).subscribe( response => {    
+    this.wbService.getTabelasPrecos(params, nextPage).subscribe( response => {    
       if(!this.lista) this.lista = [];
-      this.lista = this.lista.concat(response.data as Array<Cliente>);
+      this.lista = this.lista.concat(response.data as Array<TabelaPreco>);
       this.nextPage = response.next_page_url;
     } , response => {
       if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
@@ -57,10 +56,15 @@ export class ClientesPage implements OnInit {
     });
   }
 
+  async incluir() {
+    let preco = new TabelaPreco();
+    this.loadModal(preco);
+  }
+
   async excluirAlertConfirm(index:number) {
     let alert = await this.alertCtrl.create({
       header: 'Excluir',
-      message: 'Deseja realmente excluir este cliente?',
+      message: 'Deseja realmente excluir este preco?',
       buttons: [
         {
           text: 'Não',
@@ -70,8 +74,8 @@ export class ClientesPage implements OnInit {
           text: 'Sim',
           handler: () => {
             this.wbService.presentLoading();
-            let cliente = this.lista[index];
-            this.wbService.deleteCliente(cliente.id).subscribe( () => {    
+            let preco = this.lista[index];
+            this.wbService.deleteTabelaPreco(preco.id).subscribe( () => {    
               this.lista.splice(index, 1);
               this.wbService.dismissLoading();
             } , response => {
@@ -87,10 +91,10 @@ export class ClientesPage implements OnInit {
     await alert.present();
   }
 
-  async loadModal(cliente:Cliente, index?:number) {
+  async loadModal(preco:TabelaPreco, index?:number) {
     const modal = await this.modalCtrl.create({
-      component: FormClientesComponent,
-      componentProps: {cliente: cliente}
+      component: FormTabelasPrecosComponent,
+      componentProps: {preco: preco}
     });
     modal.present();
 
@@ -99,55 +103,6 @@ export class ClientesPage implements OnInit {
       if(!isNaN(index)) this.lista[index] = data;
       else this.lista.push(data);
     }
-  }
-
-  async incluirAlertForm() {
-    let form = await this.alertCtrl.create({
-      header: 'Novo',
-      message: 'Informe o CPF/CNPJ do novo cliente',
-      inputs: [
-        {
-          name: 'documento',
-          type: 'text',
-          placeholder: 'CPF/CNPJ'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Novo',
-          handler: (data) => {
-            let cliente = new Cliente();
-            this.loadModal(cliente);
-          }
-        }, {
-          text: 'Buscar',
-          handler: (data) => {
-            if(!data.documento) {
-              this.wbService.messageAlertError("Documento não informado.");
-              return false;
-            }
-            this.wbService.presentLoading();
-            this.wbService.getPessoaDocumento('cliente',data.documento).subscribe( response => {    
-              let cliente = new Cliente();
-              cliente.pessoa = (response.pessoa as Pessoa);
-              this.loadModal(cliente);
-              this.wbService.dismissLoading();
-              form.dismiss();
-            } , response => {
-              this.wbService.dismissLoading();
-              if(response['status'] == 404) this.wbService.messageAlertError("Cadastro indispónível.");
-              else if(response['error'] && response['error']['error']) this.wbService.messageAlertError(response['error']['error']);
-              else this.wbService.messageAlertError("Falha interno do servidor.");
-            });
-            return false;
-          }
-        }, {
-          text: 'Calcelar',
-          role: 'cancel'
-        }
-      ]
-    });
-    await form.present();
   }
 
   filterData(filter?) {
@@ -178,25 +133,13 @@ export class ClientesPage implements OnInit {
       {
         name: 'ordem',
         type: 'radio',
-        label: 'Código Crescente',
-        value: 'codigo|asc',
-      },
-      {
-        name: 'ordem',
-        type: 'radio',
-        label: 'Código Decrescente',
-        value: 'codigo|desc',
-      },
-      {
-        name: 'ordem',
-        type: 'radio',
-        label: 'Nome Crescente',
+        label: 'Descrição Crescente',
         value: 'razao_social|asc',
       },
       {
         name: 'ordem',
         type: 'radio',
-        label: 'Nome Decrescente',
+        label: 'Descrição Decrescente',
         value: 'razao_social|desc'
       }
     ];

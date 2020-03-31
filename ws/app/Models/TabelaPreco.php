@@ -14,7 +14,7 @@ class TabelaPreco extends Model
     protected $table = 'tabelas_precos';
 
     protected $fillable = [
-        'descricao', 'empresa_id'
+        'descricao', 'empresa_id', 'is_ativo'
     ];
 
     /**

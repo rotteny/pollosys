@@ -193,28 +193,28 @@ export class FormClientesComponent implements OnInit {
             if(this.cliente.id) {
               this.wbService.updateCliente(this.cliente.id,this.fGroup.value).subscribe( response => {
                 this.modalCtrl.dismiss(response['success']['cliente'] as Cliente);
+                this.wbService.dismissLoading();
               } , response => {
+                this.wbService.dismissLoading();
                 if(response['error'] && typeof response['error']['error'] == 'object') {
                   let errors = [];
                   for(let i in response['error']['error']) errors.push(response['error']['error'][i].join('<br>'));
                   this.wbService.messageAlertError(errors.join('<br>'));
                 }
                 else this.wbService.messageAlertError("Falha interno do servidor.");
-              }, () => {
-                this.wbService.dismissLoading();
               });
             } else {
               this.wbService.addCliente(this.fGroup.value).subscribe( response => {
                 this.modalCtrl.dismiss(response['success']['cliente'] as Cliente);
+                this.wbService.dismissLoading();
               } , response => {
+                this.wbService.dismissLoading();
                 if(response['error'] && typeof response['error']['error'] == 'object') {
                   let errors = [];
                   for(let i in response['error']['error']) errors.push(response['error']['error'][i].join('<br>'));
                   this.wbService.messageAlertError(errors.join('<br>'));
                 }
                 else this.wbService.messageAlertError("Falha interno do servidor.");
-              }, () => {
-                this.wbService.dismissLoading();
               });
             }
           }

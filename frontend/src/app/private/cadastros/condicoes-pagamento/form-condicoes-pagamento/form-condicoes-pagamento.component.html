@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Documento Financeiro</ion-title>
+    <ion-title>Condição de Pagamento</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,6 +12,16 @@
         <ion-item>
           <ion-label color="primary" position="floating">Descrição*</ion-label>
           <ion-input type="text" maxlength="200" formControlName="descricao"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">Número de Parcelas*</ion-label>
+          <ion-input type="number" maxlength="3" formControlName="numero_parcelas"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">Dia da Primeira Parcela*</ion-label>
+          <ion-input type="number" maxlength="2" formControlName="dia_primeira_parcela"></ion-input>
         </ion-item>
       </ion-col>
     </form>

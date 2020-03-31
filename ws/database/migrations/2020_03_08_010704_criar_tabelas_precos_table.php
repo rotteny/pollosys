@@ -16,6 +16,9 @@ class CriarTabelasPrecosTable extends Migration
         Schema::create('tabelas_precos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('descricao', 200);
+            $table->smallInteger('is_ativo')
+                ->nullable(false)
+                ->default(1);
             $table->unsignedBigInteger('empresa_id')
                 ->nullable(false);
             $table->foreign('empresa_id', 'tabelas_precos_empresas_fk')

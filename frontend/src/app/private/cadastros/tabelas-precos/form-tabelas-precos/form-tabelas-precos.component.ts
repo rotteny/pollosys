@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { TabelaPreco } from 'src/app/models/tabelaPreco';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
-import { DocumentoFinanceiro } from 'src/app/models/documentoFinanceiro';
 import { WebService } from 'src/app/services/web.service';
 
 @Component({
-  selector: 'app-form-documentos-financeiros',
-  templateUrl: './form-documentos-financeiros.component.html',
-  styleUrls: ['./form-documentos-financeiros.component.scss'],
+  selector: 'app-form-tabelas-precos',
+  templateUrl: './form-tabelas-precos.component.html',
+  styleUrls: ['./form-tabelas-precos.component.scss'],
 })
-export class FormDocumentosFinanceirosComponent implements OnInit {
-  public documento: DocumentoFinanceiro = new DocumentoFinanceiro();
+export class FormTabelasPrecosComponent implements OnInit {
+  public preco: TabelaPreco = new TabelaPreco();
   public fGroup: FormGroup;
 
   constructor(
@@ -19,7 +19,7 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
     private modalCtrl: ModalController,
     private wbService: WebService) { 
       this.fGroup = this.fBuilder.group({
-        'descricao': [this.documento.descricao, Validators.compose([
+        'descricao': [this.preco.descricao, Validators.compose([
           Validators.required,
           Validators.maxLength(200)
         ])],
@@ -27,7 +27,7 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.fGroup.get('descricao').setValue(this.documento.descricao);
+    this.fGroup.get('descricao').setValue(this.preco.descricao);
   }
 
   close() {
@@ -51,9 +51,9 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
           text: 'Sim',
           handler: () => {
             this.wbService.presentLoading();
-            if(this.documento.id) {
-              this.wbService.updateDocumentoFinanceiro(this.documento.id,this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiro);
+            if(this.preco.id) {
+              this.wbService.updateTabelaPreco(this.preco.id,this.fGroup.value).subscribe( response => {
+                this.modalCtrl.dismiss(response['success']['tabelaPreco'] as TabelaPreco);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -65,8 +65,8 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
                 else this.wbService.messageAlertError("Falha interno do servidor.");
               });
             } else {
-              this.wbService.addDocumentoFinanceiro(this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiro);
+              this.wbService.addTabelaPreco(this.fGroup.value).subscribe( response => {
+                this.modalCtrl.dismiss(response['success']['tabelaPreco'] as TabelaPreco);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();

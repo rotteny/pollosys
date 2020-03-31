@@ -64,12 +64,12 @@ export class WebService {
       });
   }
   
-  private obj2QueryString(obj : any) : string {
+  private obj2QueryString(obj : any, nextPage? : string) : string {
     let queryString = [];
     if(obj) {
       for(let c in obj) { queryString.push(c + "=" + obj[c]); }
     }
-    if(queryString.length > 0) return "?" + queryString.join("&");
+    if(queryString.length > 0) return (nextPage?"&":"?") + queryString.join("&");
     return "";
   }
 
@@ -102,8 +102,8 @@ export class WebService {
 
   // Documento Financeiro 
   public getDocumentosFinanceiros(params?,nextPage?:string) : any {
-    let queryString = this.obj2QueryString(params);
-    if(!nextPage) nextPage = this.baseUrl + "documentos_financeiros";
+    let queryString = this.obj2QueryString(params, nextPage);
+    if(!nextPage) nextPage = this.baseUrl + "documentos_financeiros/list";
     return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
   }
 
@@ -112,9 +112,21 @@ export class WebService {
     return this.http.get(this.baseUrl + "documentos_financeiros/options" + queryString, {headers: this.getHeaders(true)});
   }
 
+  public addDocumentoFinanceiro(params) : any {
+    return this.http.post(this.baseUrl + "documentos_financeiros/add", params, {headers: this.getHeaders(true)});
+  }
+
+  public updateDocumentoFinanceiro(id, params) : any {
+    return this.http.post(this.baseUrl + "documentos_financeiros/update/" + id, params, {headers: this.getHeaders(true)});
+  }
+
+  public deleteDocumentoFinanceiro(id, params?) : any {
+    return this.http.post(this.baseUrl + "documentos_financeiros/delete/" + id , params, {headers: this.getHeaders(true)});
+  }
+
   // Tabela de Preco
   public getTabelasPrecos(params?,nextPage?:string) : any {
-    let queryString = this.obj2QueryString(params);
+    let queryString = this.obj2QueryString(params,nextPage);
     if(!nextPage) nextPage = this.baseUrl + "tabelas_precos/list";
     return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
   }
@@ -122,6 +134,18 @@ export class WebService {
   public getTabelasPrecosOptions(params?) : any {
     let queryString = this.obj2QueryString(params);
     return this.http.get(this.baseUrl + "tabelas_precos/options" + queryString, {headers: this.getHeaders(true)});
+  }
+
+  public addTabelaPreco(params) : any {
+    return this.http.post(this.baseUrl + "tabelas_precos/add", params, {headers: this.getHeaders(true)});
+  }
+
+  public updateTabelaPreco(id, params) : any {
+    return this.http.post(this.baseUrl + "tabelas_precos/update/" + id, params, {headers: this.getHeaders(true)});
+  }
+
+  public deleteTabelaPreco(id, params?) : any {
+    return this.http.post(this.baseUrl + "tabelas_precos/delete/" + id , params, {headers: this.getHeaders(true)});
   }
 
   // Condicao de Pagamento
@@ -136,10 +160,23 @@ export class WebService {
     return this.http.get(this.baseUrl + "condicoes_pagamentos/options" + queryString, {headers: this.getHeaders(true)});
   }
 
+  public addCondicaoPagamento(params) : any {
+    return this.http.post(this.baseUrl + "condicoes_pagamentos/add", params, {headers: this.getHeaders(true)});
+  }
+
+  public updateCondicaoPagamento(id, params) : any {
+    return this.http.post(this.baseUrl + "condicoes_pagamentos/update/" + id, params, {headers: this.getHeaders(true)});
+  }
+
+  public deleteCondicaoPagamento(id, params?) : any {
+    return this.http.post(this.baseUrl + "condicoes_pagamentos/delete/" + id , params, {headers: this.getHeaders(true)});
+  }
+
   // Pessoa
   public getPessoaDocumento(tipo:string, documento:string) : any {
     return this.http.get(this.baseUrl + "pessoas/" + tipo + "/" + documento, {headers: this.getHeaders(true)});
   }
 
+  
   
 }

@@ -1,7 +1,7 @@
 import { FormDocumentosFinanceirosComponent } from './form-documentos-financeiros/form-documentos-financeiros.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,7 +14,8 @@ import { DocumentosFinanceirosPage } from './documentos-financeiros.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DocumentosFinanceirosPageRoutingModule
+    DocumentosFinanceirosPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [DocumentosFinanceirosPage, FormDocumentosFinanceirosComponent],
   entryComponents: [FormDocumentosFinanceirosComponent]

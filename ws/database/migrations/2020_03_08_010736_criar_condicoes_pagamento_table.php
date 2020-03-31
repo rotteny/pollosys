@@ -22,6 +22,9 @@ class CriarCondicoesPagamentoTable extends Migration
                 ->nullable(false);
             $table->unsignedBigInteger('empresa_id')
                 ->nullable(false);
+            $table->smallInteger('is_ativo')
+                ->nullable(false)
+                ->default(1);
             $table->foreign('empresa_id', 'condicoes_pagamento_empresas_fk')
                 ->references('id')
                 ->on('empresas')

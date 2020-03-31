@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
-import { DocumentoFinanceiro } from 'src/app/models/documentoFinanceiro';
 import { WebService } from 'src/app/services/web.service';
+import { CondicaoPagamento } from 'src/app/models/condicaoPagamento';
 
 @Component({
-  selector: 'app-form-documentos-financeiros',
-  templateUrl: './form-documentos-financeiros.component.html',
-  styleUrls: ['./form-documentos-financeiros.component.scss'],
+  selector: 'app-form-condicoes-pagamento',
+  templateUrl: './form-condicoes-pagamento.component.html',
+  styleUrls: ['./form-condicoes-pagamento.component.scss'],
 })
-export class FormDocumentosFinanceirosComponent implements OnInit {
-  public documento: DocumentoFinanceiro = new DocumentoFinanceiro();
+export class FormCondicoesPagamentoComponent implements OnInit {
+  public condicao: CondicaoPagamento = new CondicaoPagamento();
   public fGroup: FormGroup;
 
   constructor(
@@ -19,15 +19,23 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
     private modalCtrl: ModalController,
     private wbService: WebService) { 
       this.fGroup = this.fBuilder.group({
-        'descricao': [this.documento.descricao, Validators.compose([
+        'descricao': [this.condicao.descricao, Validators.compose([
           Validators.required,
           Validators.maxLength(200)
         ])],
+        'numero_parcelas': [this.condicao.numero_parcelas, Validators.compose([
+          Validators.required,
+          Validators.pattern('[0-9]+')
+        ])],
+        'dia_primeira_parcela': [this.condicao.dia_primeira_parcela, Validators.compose([
+          Validators.required,
+          Validators.pattern('([0-9]|[12][0-9]|3[01])')
+        ])]
       });
     }
 
   ngOnInit() {
-    this.fGroup.get('descricao').setValue(this.documento.descricao);
+    this.fGroup.get('descricao').setValue(this.condicao.descricao);
   }
 
   close() {
@@ -51,9 +59,9 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
           text: 'Sim',
           handler: () => {
             this.wbService.presentLoading();
-            if(this.documento.id) {
-              this.wbService.updateDocumentoFinanceiro(this.documento.id,this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiro);
+            if(this.condicao.id) {
+              this.wbService.updateCondicaoPagamento(this.condicao.id,this.fGroup.value).subscribe( response => {
+                this.modalCtrl.dismiss(response['success']['condicaoPagamento'] as CondicaoPagamento);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -65,8 +73,8 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
                 else this.wbService.messageAlertError("Falha interno do servidor.");
               });
             } else {
-              this.wbService.addDocumentoFinanceiro(this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiro);
+              this.wbService.addCondicaoPagamento(this.fGroup.value).subscribe( response => {
+                this.modalCtrl.dismiss(response['success']['condicaoPagamento'] as CondicaoPagamento);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -84,5 +92,4 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
     });
     await alert.present();
   }
-
 }

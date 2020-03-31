@@ -29,7 +29,15 @@ class TabelaPrecoController extends Controller
     public function list(Request $request) 
     { 
         $usuario = Auth::user();
-        return response()->json(TabelaPreco::where('empresa_id', $usuario->empresa_id)->paginate(env('PAGE_SIZE', 50)), 200); 
+
+        $where = [['empresa_id', $usuario->empresa_id], ['is_ativo', 1]];
+        if(request("u")) $where[] = ['descricao', 'like', '%' . request("u") . '%'];
+
+        $order = 'id';
+        $direction = 'asc';
+        if(request("s")) list($order, $direction) = explode('|', request("s"));
+
+        return response()->json(TabelaPreco::where($where)->orderBY($order, $direction)->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 
@@ -40,7 +48,7 @@ class TabelaPrecoController extends Controller
     public function options(Request $request) 
     { 
         $usuario = Auth::user();
-        return response()->json(TabelaPreco::where('empresa_id', $usuario->empresa_id)->get(), 200); 
+        return response()->json(TabelaPreco::where('empresa_id', $usuario->empresa_id)->where('is_ativo', 1)->get(), 200); 
     }
 
     /** 
@@ -85,5 +93,20 @@ class TabelaPrecoController extends Controller
             
         $success['tabelaPreco']   = TabelaPreco::find($tabelaPreco->id);
         return response()->json(['success' => $success], 202);
+    }
+
+    /** 
+     * Register api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function delete(Request $request, $id) 
+    { 
+        $usuario   = Auth::user();
+        if (!$tabelaPreco = TabelaPreco::where('empresa_id', $usuario->empresa_id)->find($id)) return response()->json(['error'=>['Condição de Pagamento não encontrado.']], 401);
+        
+        $tabelaPreco->is_ativo  = 0;
+        $tabelaPreco->save();
+        return response()->json("", 204);
     }
 }

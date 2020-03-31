@@ -32,8 +32,6 @@ class ClienteController extends Controller
      */ 
     public function list(Request $request) 
     { 
-        // $where = [];
-        // if($request->input('u')) $orWhere = [['razao_social']]
         $order = 'id';
         $direction = 'asc';
         

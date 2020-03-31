@@ -14,7 +14,7 @@ import { environment } from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
-import { NgxMaskIonicModule } from 'ngx-mask-ionic'
+import { NgxMaskIonicModule } from 'ngx-mask-ionic';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent],

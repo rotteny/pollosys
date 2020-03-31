@@ -15,7 +15,7 @@
 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="refreshCliente()" size="small">
+    <ion-fab-button (click)="refreshData()" size="small">
       <ion-icon name="refresh-sharp"></ion-icon>
     </ion-fab-button>
 
@@ -23,11 +23,11 @@
       <ion-icon name="add-sharp"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-searchbar placeholder="Todos" (ionInput)="filterClientes($event)" clearInput></ion-searchbar>
+  <ion-searchbar placeholder="Todos" (ionInput)="filterData($event)" clearInput></ion-searchbar>
   
-  <div *ngIf="clientes">
+  <div *ngIf="lista">
     <ion-list>
-      <ion-item *ngFor="let cliente of clientes; let idx = index" >
+      <ion-item *ngFor="let cliente of lista; let idx = index" >
         <ion-label>
           <h2>{{cliente.pessoa.codigo}} - {{cliente.pessoa.razao_social}}</h2>
           <h3 *ngIf="cliente.pessoa.pessoa=='F'">P{{cliente.pessoa?.pessoa}}: {{cliente.pessoa?.documento | mask: '000.000.000-00'}}</h3>
@@ -35,7 +35,7 @@
           <h3>{{cliente.pessoa?.telefone | mask: '(00)00000-0000'}}, {{cliente.pessoa?.email}}</h3>
         </ion-label>
         <div>
-          <ion-button class="btn-secondary" (click)="clienteModal(cliente, idx)">
+          <ion-button class="btn-secondary" (click)="loadModal(cliente, idx)">
             <ion-icon name="person-sharp"></ion-icon>
           </ion-button>
           <ion-button class="btn-danger" (click)="excluirAlertConfirm(idx)">
@@ -50,7 +50,7 @@
     </ion-infinite-scroll>
   </div>
   <!-- Skeleton screen -->
-<div *ngIf="!clientes">
+<div *ngIf="!lista">
   <ion-list>
     <ion-item *ngFor="let x of [1,2,3,4,5,6,7,8]">
       <ion-label>

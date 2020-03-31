@@ -21,8 +21,8 @@ export class MenuComponent implements OnInit {
           url: '/private/cadastros/condicoes-pagamento'
         },
         {
-          title: 'Preços',
-          url: '/private/cadastros/precos'
+          title: 'Tabelas de Preços',
+          url: '/private/cadastros/tabelas-precos'
         },
         {
           title: 'Clientes',

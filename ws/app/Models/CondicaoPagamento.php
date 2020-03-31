@@ -14,7 +14,7 @@ class CondicaoPagamento extends Model
     protected $table = 'condicoes_pagamento';
     
     protected $fillable = [
-        'descricao', 'numero_parcelas', 'dia_primeira_parcela', 'empresa_id'
+        'descricao', 'numero_parcelas', 'dia_primeira_parcela', 'empresa_id', 'is_ativo'
     ];
 
     /**

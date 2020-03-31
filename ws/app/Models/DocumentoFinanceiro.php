@@ -14,7 +14,7 @@ class DocumentoFinanceiro extends Model
     protected $table = 'documentos_financeiros';
 
     protected $fillable = [
-        'descricao', 'empresa_id'
+        'descricao', 'empresa_id', 'is_ativo'
     ];
 
     /**

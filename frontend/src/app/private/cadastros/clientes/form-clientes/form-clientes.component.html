@@ -27,21 +27,21 @@
         </ion-radio-group>
 
         <ion-item>
-          <ion-label color="primary">Doc. Financeiro</ion-label>
+          <ion-label color="primary">Doc. Financeiro*</ion-label>
           <ion-select okText="OK" cancelText="Cancelar" formControlName="documento_financeiro_id">
             <ion-select-option *ngFor="let item of documentosFinanceiros" [value]="item.id">{{item.descricao}}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label color="primary">Tab. Preço</ion-label>
+          <ion-label color="primary">Tab. Preço*</ion-label>
           <ion-select okText="OK" cancelText="Cancelar" formControlName="tabela_preco_id">
             <ion-select-option *ngFor="let item of tabelasPrecos" [value]="item.id">{{item.descricao}}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label color="primary">Cond. Pagamento</ion-label>
+          <ion-label color="primary">Cond. Pagamento*</ion-label>
           <ion-select okText="OK" cancelText="Cancelar" formControlName="condicao_pagamento_id">
             <ion-select-option *ngFor="let item of codicoesPagamento" [value]="item.id">{{item.descricao}}</ion-select-option>
           </ion-select>

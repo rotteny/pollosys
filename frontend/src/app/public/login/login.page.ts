@@ -2,7 +2,7 @@ import { Usuario } from './../../models/usuario';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { WebService } from './../../services/web.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, LoadingController, AlertController } from '@ionic/angular';
+import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,9 +12,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
   @ViewChild(IonSlides, {static: true}) slides: IonSlides;
-
-  public loading;
-
+  
   public login = {
       email: 'admin@admin.com.br',
       senha: '123456'
@@ -23,12 +21,11 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router, 
     private wbService: WebService,
-    private authService: AuthenticationService,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private authService: AuthenticationService
     ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   segmentChanged(event: any) {
     if(event.detail.value === "login") 

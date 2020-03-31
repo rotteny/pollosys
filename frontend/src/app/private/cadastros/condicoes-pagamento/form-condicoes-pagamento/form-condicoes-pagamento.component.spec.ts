@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PrecosPage } from './precos.page';
+import { FormCondicoesPagamentoComponent } from './form-condicoes-pagamento.component';
 
-describe('PrecosPage', () => {
-  let component: PrecosPage;
-  let fixture: ComponentFixture<PrecosPage>;
+describe('FormCondicoesPagamentoComponent', () => {
+  let component: FormCondicoesPagamentoComponent;
+  let fixture: ComponentFixture<FormCondicoesPagamentoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrecosPage ],
+      declarations: [ FormCondicoesPagamentoComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PrecosPage);
+    fixture = TestBed.createComponent(FormCondicoesPagamentoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

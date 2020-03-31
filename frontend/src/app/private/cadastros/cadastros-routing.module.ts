@@ -35,8 +35,12 @@ const routes: Routes = [
     loadChildren: () => import('./documentos-financeiros/documentos-financeiros.module').then( m => m.DocumentosFinanceirosPageModule)
   },
   {
-    path: 'precos',
-    loadChildren: () => import('./precos/precos.module').then( m => m.PrecosPageModule)
+    path: 'tabelas-precos',
+    loadChildren: () => import('./tabelas-precos/tabelas-precos.module').then( m => m.TabelasPrecosPageModule)
+  },
+  {
+    path: 'condicoes-pagamento',
+    loadChildren: () => import('./condicoes-pagamento/condicoes-pagamento.module').then( m => m.CondicoesPagamentoPageModule)
   },
 ];
  
