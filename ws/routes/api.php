@@ -29,6 +29,7 @@ Route::middleware('cors')->group(function(){
                 Route::get('details', 'UsuarioController@details')->middleware('is_admin');
                 Route::get('get/{id}', 'UsuarioController@single')->middleware('is_admin');
                 Route::get('list', 'UsuarioController@list')->middleware('is_admin');
+                Route::get('empresa/{id}', 'UsuarioController@empresa')->middleware('is_admin');
                 Route::post('add', 'UsuarioController@add')->middleware('is_admin');
                 Route::post('update/{id}', 'UsuarioController@update')->middleware('is_admin');
                 Route::post('delete/{id}', 'UsuarioController@delete')->middleware('is_admin');

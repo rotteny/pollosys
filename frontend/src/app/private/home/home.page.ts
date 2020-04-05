@@ -1,3 +1,4 @@
+import { WebService } from 'src/app/services/web.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
@@ -8,17 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  logoDefault:string = "/assets/img/pollosys-logo.png";
+  logoDefault:string = "assets/img/pollosys-logo.png";
 
   logo:string;
   
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private wbService: WebService) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter(){
-    if(this.authService.usuario.empresa.imagem_url) this.logo = this.authService.usuario.empresa.imagem_url;
+    if(this.authService.usuario.empresa.imagem_url) this.logo = this.wbService.baseUrl + this.authService.usuario.empresa.imagem_url;
     else this.logo = this.logoDefault;
   }
 }

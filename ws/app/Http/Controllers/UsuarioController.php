@@ -47,7 +47,30 @@ class UsuarioController extends Controller
      */ 
     public function list(Request $request) 
     { 
-        return response()->json(Usuario::with('empresa')->paginate(env('PAGE_SIZE', 50)), 200); 
+        return response()->json(Usuario::paginate(env('PAGE_SIZE', 50)), 200); 
+    }
+
+    /** 
+     * Register api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function empresa(Request $request, $id) 
+    { 
+        $order = 'id';
+        $direction = 'asc';
+        
+        if(request("s")) list($order, $direction) = explode('|', request("s"));
+
+        return response()->json(Usuario::orderBY($order, $direction)
+            ->whereHas('empresa', function ($query) use($id) { 
+                $query->where('empresa_id', $id);
+                if(request("u")) {
+                    $query->where('razao_social', 'like', '%' . request("u") . '%');
+                    $query->orWhere('nome_fantasia', 'like', '%' . request("u") . '%');
+                    $query->orWhere('codigo', 'like', '%' . request("u") . '%');
+                }
+            })->paginate(env('PAGE_SIZE', 50)), 200); 
     }
 
     /** 

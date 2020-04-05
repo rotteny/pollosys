@@ -16,6 +16,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { NgxMaskIonicModule } from 'ngx-mask-ionic';
 
+import { Camera } from '@ionic-native/Camera/ngx';
+import { File } from '@ionic-native/File/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+
 @NgModule({
   declarations: [AppComponent, MenuComponent],
   entryComponents: [],
@@ -31,7 +35,8 @@ import { NgxMaskIonicModule } from 'ngx-mask-ionic';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    Camera, File, WebView
   ],
   bootstrap: [AppComponent]
 })

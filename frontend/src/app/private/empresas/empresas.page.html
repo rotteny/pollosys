@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-title>Tabelas de Preços</ion-title>
+      <ion-title>Empresas</ion-title>
     </ion-buttons>
 
     <ion-buttons slot="end">
@@ -27,13 +27,20 @@
   
   <div *ngIf="lista">
     <ion-list>
-      <ion-item *ngFor="let preco of lista; let idx = index" >
+      <ion-item *ngFor="let empresa of lista; let idx = index" >
+        <ion-thumbnail slot="start" *ngIf="empresa.imagem_url">
+          <ion-img [src]="baseUrl + empresa.imagem_url"></ion-img>
+        </ion-thumbnail>
+        <ion-thumbnail slot="start" *ngIf="!empresa.imagem_url">
+          <img [src]="logoDefault">
+        </ion-thumbnail>
         <ion-label>
-          <h2>{{preco.descricao}}</h2>
+          <h2>{{empresa.nome}}</h2>
+          <h3>{{empresa.responsavel}}</h3>
         </ion-label>
         <div>
-          <ion-button class="btn-secondary" (click)="loadModal(preco, idx)">
-            <ion-icon name="file-tray-stacked-sharp"></ion-icon>
+          <ion-button class="btn-secondary" (click)="loadModal(empresa, idx)">
+            <ion-icon name="briefcase-sharp"></ion-icon>
           </ion-button>
           <ion-button class="btn-danger" (click)="excluirAlertConfirm(idx)">
             <ion-icon name="trash-sharp" color="light"></ion-icon>
@@ -41,7 +48,6 @@
         </div>
       </ion-item>
     </ion-list>
-
 
     <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
       <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
@@ -51,8 +57,12 @@
 <div *ngIf="!lista">
   <ion-list>
     <ion-item *ngFor="let x of [1,2,3,4,5,6,7,8]">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
       <ion-label>
-        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
+        <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
       </ion-label>
     </ion-item>
   </ion-list>

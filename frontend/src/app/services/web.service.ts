@@ -8,8 +8,9 @@ import { LoadingController, AlertController } from '@ionic/angular';
 })
 export class WebService {
 
-  private baseUrl = 'https://www.pollosys.com.br/ws/public/api/v1/';
-  //private baseUrl = 'http://localhost:8000/api/v1/';
+  public baseUrl = 'https://www.pollosys.com.br/';
+  public baseApi = 'api/v1/';
+  public baseUrlApi;
 
   public loading = null;
 
@@ -18,7 +19,9 @@ export class WebService {
     private http: HttpClient,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController
-  ) { }
+  ) { 
+    this.baseUrlApi = this.baseUrl + this.baseApi;
+  }
 
   private isLoading = false;
 
@@ -75,108 +78,132 @@ export class WebService {
 
   // Clientes 
   public postLogin(login:string, password:string) {
-    return this.http.post(this.baseUrl + "login", {login: login, password: password}, {headers: this.getHeaders()});
+    return this.http.post(this.baseUrlApi + "login", {login: login, password: password}, {headers: this.getHeaders()});
   }
 
   public getClientes(params?,nextPage?:string) : any {
     let queryString = this.obj2QueryString(params);
-    if(!nextPage) nextPage = this.baseUrl + "clientes/list";
+    if(!nextPage) nextPage = this.baseUrlApi + "clientes/list";
     return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
   }
 
   public getCliente(id) : any {
-    return this.http.get(this.baseUrl + "clientes/list/" + id , {headers: this.getHeaders(true)});
+    return this.http.get(this.baseUrlApi + "clientes/list/" + id , {headers: this.getHeaders(true)});
   }
 
   public addCliente(params) : any {
-    return this.http.post(this.baseUrl + "clientes/add", params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "clientes/add", params, {headers: this.getHeaders(true)});
   }
 
   public updateCliente(id, params) : any {
-    return this.http.post(this.baseUrl + "clientes/update/" + id, params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "clientes/update/" + id, params, {headers: this.getHeaders(true)});
   }
 
   public deleteCliente(id, params?) : any {
-    return this.http.post(this.baseUrl + "clientes/delete/" + id , params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "clientes/delete/" + id , params, {headers: this.getHeaders(true)});
   }
 
   // Documento Financeiro 
   public getDocumentosFinanceiros(params?,nextPage?:string) : any {
     let queryString = this.obj2QueryString(params, nextPage);
-    if(!nextPage) nextPage = this.baseUrl + "documentos_financeiros/list";
+    if(!nextPage) nextPage = this.baseUrlApi + "documentos_financeiros/list";
     return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
   }
 
   public getDocumentosFinanceirosOptions(params?) : any {
     let queryString = this.obj2QueryString(params);
-    return this.http.get(this.baseUrl + "documentos_financeiros/options" + queryString, {headers: this.getHeaders(true)});
+    return this.http.get(this.baseUrlApi + "documentos_financeiros/options" + queryString, {headers: this.getHeaders(true)});
   }
 
   public addDocumentoFinanceiro(params) : any {
-    return this.http.post(this.baseUrl + "documentos_financeiros/add", params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "documentos_financeiros/add", params, {headers: this.getHeaders(true)});
   }
 
   public updateDocumentoFinanceiro(id, params) : any {
-    return this.http.post(this.baseUrl + "documentos_financeiros/update/" + id, params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "documentos_financeiros/update/" + id, params, {headers: this.getHeaders(true)});
   }
 
   public deleteDocumentoFinanceiro(id, params?) : any {
-    return this.http.post(this.baseUrl + "documentos_financeiros/delete/" + id , params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "documentos_financeiros/delete/" + id , params, {headers: this.getHeaders(true)});
   }
 
   // Tabela de Preco
   public getTabelasPrecos(params?,nextPage?:string) : any {
     let queryString = this.obj2QueryString(params,nextPage);
-    if(!nextPage) nextPage = this.baseUrl + "tabelas_precos/list";
+    if(!nextPage) nextPage = this.baseUrlApi + "tabelas_precos/list";
     return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
   }
 
   public getTabelasPrecosOptions(params?) : any {
     let queryString = this.obj2QueryString(params);
-    return this.http.get(this.baseUrl + "tabelas_precos/options" + queryString, {headers: this.getHeaders(true)});
+    return this.http.get(this.baseUrlApi + "tabelas_precos/options" + queryString, {headers: this.getHeaders(true)});
   }
 
   public addTabelaPreco(params) : any {
-    return this.http.post(this.baseUrl + "tabelas_precos/add", params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "tabelas_precos/add", params, {headers: this.getHeaders(true)});
   }
 
   public updateTabelaPreco(id, params) : any {
-    return this.http.post(this.baseUrl + "tabelas_precos/update/" + id, params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "tabelas_precos/update/" + id, params, {headers: this.getHeaders(true)});
   }
 
   public deleteTabelaPreco(id, params?) : any {
-    return this.http.post(this.baseUrl + "tabelas_precos/delete/" + id , params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "tabelas_precos/delete/" + id , params, {headers: this.getHeaders(true)});
   }
 
   // Condicao de Pagamento
   public getCodicoesPagamentos(params?,nextPage?:string) : any {
     let queryString = this.obj2QueryString(params);
-    if(!nextPage) nextPage = this.baseUrl + "condicoes_pagamentos/list";
+    if(!nextPage) nextPage = this.baseUrlApi + "condicoes_pagamentos/list";
     return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
   }
 
   public getCodicoesPagamentosOptions(params?) : any {
     let queryString = this.obj2QueryString(params);
-    return this.http.get(this.baseUrl + "condicoes_pagamentos/options" + queryString, {headers: this.getHeaders(true)});
+    return this.http.get(this.baseUrlApi + "condicoes_pagamentos/options" + queryString, {headers: this.getHeaders(true)});
   }
 
   public addCondicaoPagamento(params) : any {
-    return this.http.post(this.baseUrl + "condicoes_pagamentos/add", params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "condicoes_pagamentos/add", params, {headers: this.getHeaders(true)});
   }
 
   public updateCondicaoPagamento(id, params) : any {
-    return this.http.post(this.baseUrl + "condicoes_pagamentos/update/" + id, params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "condicoes_pagamentos/update/" + id, params, {headers: this.getHeaders(true)});
   }
 
   public deleteCondicaoPagamento(id, params?) : any {
-    return this.http.post(this.baseUrl + "condicoes_pagamentos/delete/" + id , params, {headers: this.getHeaders(true)});
+    return this.http.post(this.baseUrlApi + "condicoes_pagamentos/delete/" + id , params, {headers: this.getHeaders(true)});
   }
 
   // Pessoa
   public getPessoaDocumento(tipo:string, documento:string) : any {
-    return this.http.get(this.baseUrl + "pessoas/" + tipo + "/" + documento, {headers: this.getHeaders(true)});
+    return this.http.get(this.baseUrlApi + "pessoas/" + tipo + "/" + documento, {headers: this.getHeaders(true)});
   }
 
-  
+  // Empresa 
+  public getEmpresas(params?,nextPage?:string) : any {
+    let queryString = this.obj2QueryString(params, nextPage);
+    if(!nextPage) nextPage = this.baseUrlApi + "empresas/list";
+    return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
+  }
+
+  public getEmpresasOptions(params?) : any {
+    let queryString = this.obj2QueryString(params);
+    return this.http.get(this.baseUrlApi + "empresas/options" + queryString, {headers: this.getHeaders(true)});
+  }
+
+  public addEmpresa(params, img?) : any {
+    if(img) params['imagem'] = img;
+    return this.http.post(this.baseUrlApi + "empresas/add", params, {headers: this.getHeaders(true)});
+  }
+
+  public updateEmpresa(id, params, img?) : any {
+    if(img) params['imagem'] = img;
+    return this.http.post(this.baseUrlApi + "empresas/update/" + id, params, {headers: this.getHeaders(true)});
+  }
+
+  public deleteEmpresa(id, params?) : any {
+    return this.http.post(this.baseUrlApi + "empresas/delete/" + id , params, {headers: this.getHeaders(true)});
+  }
   
 }

@@ -1,5 +1,9 @@
 <?php
 
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Empresa;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +15,7 @@
 |
 */
 
-Route::get('/', function () { return view('welcome'); });
+Route::get('/', function () { return view('pollosys'); });
 
 Auth::routes();
 

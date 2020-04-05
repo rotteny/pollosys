@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Empresa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <form [formGroup]="fGroup">
+      <ion-col size="12">
+        <ion-item>
+          <ion-label color="primary" position="floating">Nome*</ion-label>
+          <ion-input type="text" maxlength="200" formControlName="nome"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary" position="floating">Responsável*</ion-label>
+          <ion-input type="text" maxlength="200" formControlName="responsavel"></ion-input>
+        </ion-item>
+        
+        <br>
+        <label>
+          <ion-item *ngIf="imagem_url">
+            <ion-img [src]="imagem_url"></ion-img>
+          </ion-item>
+          
+          <ion-item color="primary">
+            <input type="file" style="display: none;" (change)="loadImg($event)">
+            <ion-icon name="cloud-upload-sharp"></ion-icon>&nbsp;Selecione uma Imagem
+          </ion-item>
+        </label>
+          
+      </ion-col>
+    </form>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" color="primary">Cancelar</ion-button>
+      <ion-button (click)="submitForm()" color="primary" [disabled]="!fGroup.valid">Salvar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

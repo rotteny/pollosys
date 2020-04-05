@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'suprimentos',
     loadChildren: () => import('./suprimentos/suprimentos-routing.module').then( m => m.SuprimentosRoutingModule),
   },
+  {
+    path: 'empresas',
+    loadChildren: () => import('./empresas/empresas.module').then( m => m.EmpresasPageModule)
+  },
 ];
  
 @NgModule({

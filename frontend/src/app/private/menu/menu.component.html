@@ -50,6 +50,12 @@
       </ion-menu-toggle>
 
       <ion-menu-toggle>
+        <div *ngIf="authService.usuario.is_admin">
+          <ion-item routerLink="/private/empresas" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/empresas'">
+            <ion-icon name="briefcase-sharp" color="primary" slot="start"></ion-icon> Empresas
+          </ion-item>
+        </div>
+
         <ion-item routerLink="/private/notas-fiscais" routerDirection="root" lines="none" [class.active-item]="selectedPath === '/notas-fiscais'">
           <ion-icon name="logo-edge" color="primary" slot="start"></ion-icon> Notas Fiscais Eletrônicas
         </ion-item>
