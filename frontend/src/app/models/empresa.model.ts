@@ -1,4 +1,4 @@
-export class Empresa {
+export class EmpresaModel {
     public id : number;
     public nome : string;
     public responsavel : string;

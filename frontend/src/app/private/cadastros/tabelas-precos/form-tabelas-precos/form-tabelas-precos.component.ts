@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TabelaPreco } from 'src/app/models/tabelaPreco';
+import { TabelaPrecoModel } from 'src/app/models/tabelaPreco.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { WebService } from 'src/app/services/web.service';
@@ -10,7 +10,7 @@ import { WebService } from 'src/app/services/web.service';
   styleUrls: ['./form-tabelas-precos.component.scss'],
 })
 export class FormTabelasPrecosComponent implements OnInit {
-  public preco: TabelaPreco = new TabelaPreco();
+  public preco: TabelaPrecoModel = new TabelaPrecoModel();
   public fGroup: FormGroup;
 
   constructor(
@@ -53,7 +53,7 @@ export class FormTabelasPrecosComponent implements OnInit {
             this.wbService.presentLoading();
             if(this.preco.id) {
               this.wbService.updateTabelaPreco(this.preco.id,this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['tabelaPreco'] as TabelaPreco);
+                this.modalCtrl.dismiss(response['success']['tabelaPreco'] as TabelaPrecoModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -66,7 +66,7 @@ export class FormTabelasPrecosComponent implements OnInit {
               });
             } else {
               this.wbService.addTabelaPreco(this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['tabelaPreco'] as TabelaPreco);
+                this.modalCtrl.dismiss(response['success']['tabelaPreco'] as TabelaPrecoModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();

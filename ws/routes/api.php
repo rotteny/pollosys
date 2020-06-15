@@ -89,6 +89,77 @@ Route::middleware('cors')->group(function(){
                 Route::post('update/{id}', 'EmpresaController@update');
                 Route::post('delete/{id}', 'EmpresaController@delete');
             });
+
+            Route::prefix('fornecedores')->group(function(){
+                Route::get('get/{id}', 'FornecedorController@single');
+                Route::get('list', 'FornecedorController@list');
+                Route::post('add', 'FornecedorController@add');
+                Route::post('update/{id}', 'FornecedorController@update');
+                Route::post('delete/{id}', 'FornecedorController@delete');
+            });
+
+            Route::prefix('transportadores')->group(function(){
+                Route::get('get/{id}', 'TransportadorController@single');
+                Route::get('list', 'TransportadorController@list');
+                Route::get('options', 'TransportadorController@options');
+                Route::post('add', 'TransportadorController@add');
+                Route::post('update/{id}', 'TransportadorController@update');
+                Route::post('delete/{id}', 'TransportadorController@delete');
+            });
+
+            Route::prefix('veiculos')->group(function(){
+                Route::get('get/{id}', 'VeiculoController@single');
+                Route::get('list/{id?}', 'VeiculoController@list');
+                Route::get('options/{id?}', 'VeiculoController@options');
+                Route::post('add', 'VeiculoController@add');
+                Route::post('update/{id}', 'VeiculoController@update');
+                Route::post('delete/{id}', 'VeiculoController@delete');
+            });
+
+            Route::prefix('motoristas')->group(function(){
+                Route::get('get/{id}', 'MotoristaController@single');
+                Route::get('list', 'MotoristaController@list');
+                Route::get('options', 'MotoristaController@options');
+                Route::post('add', 'MotoristaController@add');
+                Route::post('update/{id}', 'MotoristaController@update');
+                Route::post('delete/{id}', 'MotoristaController@delete');
+            });
+
+            Route::prefix('unidades_medida')->group(function(){
+                Route::get('get/{id}', 'UnidadeMedidaController@single');
+                Route::get('list', 'UnidadeMedidaController@list');
+                Route::get('options', 'UnidadeMedidaController@options');
+                Route::post('add', 'UnidadeMedidaController@add');
+                Route::post('update/{id}', 'UnidadeMedidaController@update');
+                Route::post('delete/{id}', 'UnidadeMedidaController@delete');
+            });
+
+            Route::prefix('unidades_medida')->group(function(){
+                Route::get('get/{id}', 'UnidadeMedidaController@single');
+                Route::get('list', 'UnidadeMedidaController@list');
+                Route::get('options', 'UnidadeMedidaController@options');
+                Route::post('add', 'UnidadeMedidaController@add');
+                Route::post('update/{id}', 'UnidadeMedidaController@update');
+                Route::post('delete/{id}', 'UnidadeMedidaController@delete');
+            });
+
+            Route::prefix('tipos_movimentacao')->group(function(){
+                Route::get('get/{id}', 'TipoMovimentacaoController@single');
+                Route::get('list', 'TipoMovimentacaoController@list');
+                Route::get('options', 'TipoMovimentacaoController@options');
+                Route::post('add', 'TipoMovimentacaoController@add');
+                Route::post('update/{id}', 'TipoMovimentacaoController@update');
+                Route::post('delete/{id}', 'TipoMovimentacaoController@delete');
+            });
+
+            Route::prefix('produtos')->group(function(){
+                Route::get('get/{id}', 'ProdutoController@single');
+                Route::get('list', 'ProdutoController@list');
+                Route::get('options', 'ProdutoController@options');
+                Route::post('add', 'ProdutoController@add');
+                Route::post('update/{id}', 'ProdutoController@update');
+                Route::post('delete/{id}', 'ProdutoController@delete');
+            });
         });
     });
 });

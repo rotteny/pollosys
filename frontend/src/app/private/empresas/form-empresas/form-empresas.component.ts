@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresa } from 'src/app/models/empresa';
+import { EmpresaModel } from 'src/app/models/empresa.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ModalController, Platform, ActionSheetController } from '@ionic/angular';
 import { WebService } from 'src/app/services/web.service';
@@ -14,7 +14,7 @@ import { File } from '@ionic-native/File/ngx';
 })
 export class FormEmpresasComponent implements OnInit {
 
-  public empresa: Empresa = new Empresa();
+  public empresa: EmpresaModel = new EmpresaModel();
   public fGroup: FormGroup;
   public imagem_url;
   private newImg;
@@ -67,7 +67,7 @@ export class FormEmpresasComponent implements OnInit {
             this.wbService.presentLoading();
             if(this.empresa.id) {
               this.wbService.updateEmpresa(this.empresa.id,this.fGroup.value, this.newImg).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['empresa'] as Empresa);
+                this.modalCtrl.dismiss(response['success']['empresa'] as EmpresaModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -80,7 +80,7 @@ export class FormEmpresasComponent implements OnInit {
               });
             } else {
               this.wbService.addEmpresa(this.fGroup.value, this.newImg).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['empresa'] as Empresa);
+                this.modalCtrl.dismiss(response['success']['empresa'] as EmpresaModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -108,7 +108,6 @@ export class FormEmpresasComponent implements OnInit {
     if (fileData['type'].match(/image\/*/) == null) return;
 
     let reader = new FileReader();
-    
     reader.readAsDataURL(fileData);
     reader.onload = (_event) => { 
       this.newImg = reader.result; 

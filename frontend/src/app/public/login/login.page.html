@@ -11,54 +11,27 @@
 
       <ion-col size-xs="12" size-md="10" size-lg="6">
         <div class="container top" >
-          <ion-segment (ionChange)="segmentChanged($event)" value="login">
-            <ion-segment-button value="login">
-              <ion-label>Login</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="esqueci">
-              <ion-label>Esqueci Senha</ion-label>
-            </ion-segment-button>
-          </ion-segment>
+          <ion-title color="primary">Login</ion-title>
         </div>
 
         <ion-row align-items-center class="ion-justify-content-between">
-          <ion-slides>
+          <form (ngSubmit)="submitLogin()">
+            <ion-item class="ion-margin-top" lines="none">
+              <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="login.email" ></ion-input>
+            </ion-item>
             
-            <ion-slide>
-              <div class="slide-inner ion-padding">
-                <span>Login</span>
-                <form (ngSubmit)="submitLogin()">
-                  <ion-item class="ion-margin-top" lines="none">
-                    <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="login.email" ></ion-input>
-                  </ion-item>
-                  
-                  <ion-item class="ion-margin-top" lines="none">
-                    <ion-input type="password" placeholder="Senha" name="senha" [(ngModel)]="login.senha" ></ion-input>
-                  </ion-item>
-                  
-                  <ion-button class="ion-margin-top" type="submit" color="light" expand="block">
-                    Entrar
-                  </ion-button>
-                </form>
-              </div>
-            </ion-slide>
+            <ion-item class="ion-margin-top" lines="none">
+              <ion-input type="password" placeholder="Senha" name="senha" [(ngModel)]="login.senha" ></ion-input>
+            </ion-item>
+            
+            <ion-button class="ion-margin-top" type="submit" color="light" expand="block">
+              Entrar
+            </ion-button>
 
-            <ion-slide>
-              <div class="slide-inner ion-padding">
-                <span>Esqueci Senha</span>
-
-                <form (ngSubmit)="submitSenha()" >
-                  <ion-item class="ion-margin-top" lines="none">
-                    <ion-input type="email" placeholder="E-mail"></ion-input>
-                  </ion-item>
-                  
-                  <ion-button class="ion-margin-top" type="sumit" color="light" expand="block">
-                    Enviar
-                  </ion-button>
-                </form>
-              </div>
-            </ion-slide>
-          </ion-slides>
+            <ion-button class="ion-margin-top" type="button" color="light" expand="block" (click)="esqueciSenhaAlertForm()">
+              Esqueci Senha
+            </ion-button>
+          </form>
         </ion-row>
       </ion-col>
       <ion-col size-xs="0" size-md="1" size-lg="3">

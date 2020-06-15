@@ -1,4 +1,4 @@
-import { Usuario } from './../../models/usuario';
+import { UsuarioModel } from '../../models/usuario.model';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
@@ -119,7 +119,7 @@ export class MenuComponent implements OnInit {
                 if(!responses[0] && !responses[1]) {
                   this.authService.authenticationState.next(false);
                   this.authService.apiToken = null;
-                  this.authService.usuario = new Usuario;
+                  this.authService.usuario = new UsuarioModel;
                   this.router.navigateByUrl('/login');
                 }
               });

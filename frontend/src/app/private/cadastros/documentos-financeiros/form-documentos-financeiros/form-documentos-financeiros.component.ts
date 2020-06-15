@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
-import { DocumentoFinanceiro } from 'src/app/models/documentoFinanceiro';
+import { DocumentoFinanceiroModel } from 'src/app/models/documentoFinanceiro.model';
 import { WebService } from 'src/app/services/web.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { WebService } from 'src/app/services/web.service';
   styleUrls: ['./form-documentos-financeiros.component.scss'],
 })
 export class FormDocumentosFinanceirosComponent implements OnInit {
-  public documento: DocumentoFinanceiro = new DocumentoFinanceiro();
+  public documento: DocumentoFinanceiroModel = new DocumentoFinanceiroModel();
   public fGroup: FormGroup;
 
   constructor(
@@ -53,7 +53,7 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
             this.wbService.presentLoading();
             if(this.documento.id) {
               this.wbService.updateDocumentoFinanceiro(this.documento.id,this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiro);
+                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiroModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -66,7 +66,7 @@ export class FormDocumentosFinanceirosComponent implements OnInit {
               });
             } else {
               this.wbService.addDocumentoFinanceiro(this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiro);
+                this.modalCtrl.dismiss(response['success']['documentoFinanceiro'] as DocumentoFinanceiroModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();

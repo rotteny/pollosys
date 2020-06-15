@@ -81,6 +81,10 @@ export class WebService {
     return this.http.post(this.baseUrlApi + "login", {login: login, password: password}, {headers: this.getHeaders()});
   }
 
+  public postEsqueciSenha(login:string) {
+    return this.http.post(this.baseUrlApi + "login/senha", {login: login}, {headers: this.getHeaders()});
+  }
+
   public getClientes(params?,nextPage?:string) : any {
     let queryString = this.obj2QueryString(params);
     if(!nextPage) nextPage = this.baseUrlApi + "clientes/list";
@@ -204,6 +208,52 @@ export class WebService {
 
   public deleteEmpresa(id, params?) : any {
     return this.http.post(this.baseUrlApi + "empresas/delete/" + id , params, {headers: this.getHeaders(true)});
+  }
+
+  // Fornecedores 
+  public getFornecedores(params?,nextPage?:string) : any {
+    let queryString = this.obj2QueryString(params);
+    if(!nextPage) nextPage = this.baseUrlApi + "fornecedores/list";
+    return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
+  }
+
+  public getFornecedor(id) : any {
+    return this.http.get(this.baseUrlApi + "fornecedores/list/" + id , {headers: this.getHeaders(true)});
+  }
+
+  public addFornecedor(params) : any {
+    return this.http.post(this.baseUrlApi + "fornecedores/add", params, {headers: this.getHeaders(true)});
+  }
+
+  public updateFornecedor(id, params) : any {
+    return this.http.post(this.baseUrlApi + "fornecedores/update/" + id, params, {headers: this.getHeaders(true)});
+  }
+
+  public deleteFornecedor(id, params?) : any {
+    return this.http.post(this.baseUrlApi + "fornecedores/delete/" + id , params, {headers: this.getHeaders(true)});
+  }
+
+  // Transportadores 
+  public getTransportadores(params?,nextPage?:string) : any {
+    let queryString = this.obj2QueryString(params);
+    if(!nextPage) nextPage = this.baseUrlApi + "transportadores/list";
+    return this.http.get(nextPage + queryString, {headers: this.getHeaders(true)});
+  }
+
+  public getTransportador(id) : any {
+    return this.http.get(this.baseUrlApi + "transportadores/list/" + id , {headers: this.getHeaders(true)});
+  }
+
+  public addTransportador(params) : any {
+    return this.http.post(this.baseUrlApi + "transportadores/add", params, {headers: this.getHeaders(true)});
+  }
+
+  public updateTransportador(id, params) : any {
+    return this.http.post(this.baseUrlApi + "transportadores/update/" + id, params, {headers: this.getHeaders(true)});
+  }
+
+  public deleteTransportador(id, params?) : any {
+    return this.http.post(this.baseUrlApi + "transportadores/delete/" + id , params, {headers: this.getHeaders(true)});
   }
   
 }

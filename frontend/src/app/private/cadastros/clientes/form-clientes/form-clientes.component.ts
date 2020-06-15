@@ -1,13 +1,13 @@
-import { Pessoa } from './../../../../models/pessoa';
-import { DocumentoValidator } from './../../../../validators/documento.validator';
-import { TabelaPreco } from './../../../../models/tabelaPreco';
-import { CondicaoPagamento } from './../../../../models/condicaoPagamento';
-import { WebService } from './../../../../services/web.service';
-import { Cliente } from './../../../../models/cliente';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DocumentoFinanceiro } from 'src/app/models/documentoFinanceiro';
+import { DocumentoFinanceiroModel } from 'src/app/models/documentoFinanceiro.model';
+import { ClienteModel } from 'src/app/models/cliente.model';
+import { CondicaoPagamentoModel } from 'src/app/models/condicaoPagamento.model';
+import { TabelaPrecoModel } from 'src/app/models/tabelaPreco.model';
+import { WebService } from 'src/app/services/web.service';
+import { EstadoModel } from 'src/app/models/estado.model';
+import { DocumentoValidator } from 'src/app/validators/documento.validator';
 
 @Component({
   selector: 'app-form-clientes',
@@ -15,41 +15,13 @@ import { DocumentoFinanceiro } from 'src/app/models/documentoFinanceiro';
   styleUrls: ['./form-clientes.component.scss'],
 })
 export class FormClientesComponent implements OnInit {
-  public cliente: Cliente = new Cliente();
+  public cliente: ClienteModel = new ClienteModel();
   public pessoa;
-  public documentosFinanceiros: Array<DocumentoFinanceiro> = [];
-  public codicoesPagamento: Array<CondicaoPagamento> = [];
-  public tabelasPrecos: Array<TabelaPreco> = [];
+  public documentosFinanceiros: Array<DocumentoFinanceiroModel> = [];
+  public codicoesPagamento: Array<CondicaoPagamentoModel> = [];
+  public tabelasPrecos: Array<TabelaPrecoModel> = [];
   public fGroup: FormGroup;
-  public estados = [
-    {"nome": "Acre", "sigla": "AC"},
-    {"nome": "Alagoas", "sigla": "AL"},
-    {"nome": "Amapá", "sigla": "AP"},
-    {"nome": "Amazonas", "sigla": "AM"},
-    {"nome": "Bahia", "sigla": "BA"},
-    {"nome": "Ceará", "sigla": "CE"},
-    {"nome": "Distrito Federal", "sigla": "DF"},
-    {"nome": "Espírito Santo", "sigla": "ES"},
-    {"nome": "Goiás", "sigla": "GO"},
-    {"nome": "Maranhão", "sigla": "MA"},
-    {"nome": "Mato Grosso", "sigla": "MT"},
-    {"nome": "Mato Grosso do Sul", "sigla": "MS"},
-    {"nome": "Minas Gerais", "sigla": "MG"},
-    {"nome": "Pará", "sigla": "PA"},
-    {"nome": "Paraíba", "sigla": "PB"},
-    {"nome": "Paraná", "sigla": "PR"},
-    {"nome": "Pernambuco", "sigla": "PE"},
-    {"nome": "Piauí", "sigla": "PI"},
-    {"nome": "Rio de Janeiro", "sigla": "RJ"},
-    {"nome": "Rio Grande do Norte", "sigla": "RN"},
-    {"nome": "Rio Grande do Sul", "sigla": "RS"},
-    {"nome": "Rondônia", "sigla": "RO"},
-    {"nome": "Roraima", "sigla": "RR"},
-    {"nome": "Santa Catarina", "sigla": "SC"},
-    {"nome": "São Paulo", "sigla": "SP"},
-    {"nome": "Sergipe", "sigla": "SE"},
-    {"nome": "Tocantins", "sigla": "TO"}
-  ];
+  public estados: EstadoModel = new EstadoModel();
   
   constructor(
     private fBuilder: FormBuilder,
@@ -139,7 +111,7 @@ export class FormClientesComponent implements OnInit {
     this.pessoa = this.cliente.pessoa.pessoa;
 
     this.wbService.getCodicoesPagamentosOptions().subscribe( response => {    
-      this.codicoesPagamento = this.codicoesPagamento.concat(response as Array<CondicaoPagamento>);
+      this.codicoesPagamento = this.codicoesPagamento.concat(response as Array<CondicaoPagamentoModel>);
       setTimeout(() => {
         this.fGroup.get('condicao_pagamento_id').setValue(this.cliente.condicao_pagamento_id);
       }, 100);
@@ -148,7 +120,7 @@ export class FormClientesComponent implements OnInit {
     });
 
     this.wbService.getTabelasPrecosOptions().subscribe( response => {    
-      this.tabelasPrecos = this.tabelasPrecos.concat(response as Array<TabelaPreco>);
+      this.tabelasPrecos = this.tabelasPrecos.concat(response as Array<TabelaPrecoModel>);
       setTimeout(() => {
         this.fGroup.get('tabela_preco_id').setValue(this.cliente.tabela_preco_id);
       }, 100);
@@ -157,7 +129,7 @@ export class FormClientesComponent implements OnInit {
     });
 
     this.wbService.getDocumentosFinanceirosOptions().subscribe( response => {    
-      this.documentosFinanceiros = this.documentosFinanceiros.concat(response as Array<DocumentoFinanceiro>);
+      this.documentosFinanceiros = this.documentosFinanceiros.concat(response as Array<DocumentoFinanceiroModel>);
       setTimeout(() => {
         this.fGroup.get('documento_financeiro_id').setValue(this.cliente.documento_financeiro_id);
       }, 100);
@@ -192,7 +164,7 @@ export class FormClientesComponent implements OnInit {
             this.wbService.presentLoading();
             if(this.cliente.id) {
               this.wbService.updateCliente(this.cliente.id,this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['cliente'] as Cliente);
+                this.modalCtrl.dismiss(response['success']['cliente'] as ClienteModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -205,7 +177,7 @@ export class FormClientesComponent implements OnInit {
               });
             } else {
               this.wbService.addCliente(this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['cliente'] as Cliente);
+                this.modalCtrl.dismiss(response['success']['cliente'] as ClienteModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();

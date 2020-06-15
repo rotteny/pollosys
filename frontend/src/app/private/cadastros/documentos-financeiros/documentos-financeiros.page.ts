@@ -1,7 +1,7 @@
 import { AlertController, ModalController } from '@ionic/angular';
 import { FormDocumentosFinanceirosComponent } from './form-documentos-financeiros/form-documentos-financeiros.component';
 import { Component, OnInit } from '@angular/core';
-import { DocumentoFinanceiro } from 'src/app/models/documentoFinanceiro';
+import { DocumentoFinanceiroModel } from 'src/app/models/documentoFinanceiro.model';
 import { WebService } from 'src/app/services/web.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { WebService } from 'src/app/services/web.service';
 })
 export class DocumentosFinanceirosPage implements OnInit {
   public onLoad : boolean = false;
-  public lista : Array<DocumentoFinanceiro>;
+  public lista : Array<DocumentoFinanceiroModel>;
   public nextPage : string;
   public strSearch : string;
   public dataOrdem : string = "id|asc";
@@ -44,7 +44,7 @@ export class DocumentosFinanceirosPage implements OnInit {
     
     this.wbService.getDocumentosFinanceiros(params, nextPage).subscribe( response => {    
       if(!this.lista) this.lista = [];
-      this.lista = this.lista.concat(response.data as Array<DocumentoFinanceiro>);
+      this.lista = this.lista.concat(response.data as Array<DocumentoFinanceiroModel>);
       this.nextPage = response.next_page_url;
     } , response => {
       if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
@@ -57,7 +57,7 @@ export class DocumentosFinanceirosPage implements OnInit {
   }
 
   async incluir() {
-    let documento = new DocumentoFinanceiro();
+    let documento = new DocumentoFinanceiroModel();
     this.loadModal(documento);
   }
 
@@ -91,7 +91,7 @@ export class DocumentosFinanceirosPage implements OnInit {
     await alert.present();
   }
 
-  async loadModal(documento:DocumentoFinanceiro, index?:number) {
+  async loadModal(documento:DocumentoFinanceiroModel, index?:number) {
     const modal = await this.modalCtrl.create({
       component: FormDocumentosFinanceirosComponent,
       componentProps: {documento: documento}

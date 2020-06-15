@@ -1,9 +1,9 @@
-import { Pessoa } from './../../../models/pessoa';
-import { WebService } from './../../../services/web.service';
-import { Cliente } from './../../../models/cliente';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormClientesComponent } from './form-clientes/form-clientes.component';
+import { ClienteModel } from 'src/app/models/cliente.model';
+import { WebService } from 'src/app/services/web.service';
+import { PessoaModel } from 'src/app/models/pessoa.model';
 
 @Component({
   selector: 'app-clientes',
@@ -12,7 +12,7 @@ import { FormClientesComponent } from './form-clientes/form-clientes.component';
 })
 export class ClientesPage implements OnInit {
   public onLoad : boolean = false;
-  public lista : Array<Cliente>;
+  public lista : Array<ClienteModel>;
   public nextPage : string;
   public strSearch : string;
   public dataOrdem : string = "id|asc";
@@ -45,7 +45,7 @@ export class ClientesPage implements OnInit {
     
     this.wbService.getClientes(params, nextPage).subscribe( response => {    
       if(!this.lista) this.lista = [];
-      this.lista = this.lista.concat(response.data as Array<Cliente>);
+      this.lista = this.lista.concat(response.data as Array<ClienteModel>);
       this.nextPage = response.next_page_url;
     } , response => {
       if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
@@ -87,7 +87,7 @@ export class ClientesPage implements OnInit {
     await alert.present();
   }
 
-  async loadModal(cliente:Cliente, index?:number) {
+  async loadModal(cliente:ClienteModel, index?:number) {
     const modal = await this.modalCtrl.create({
       component: FormClientesComponent,
       componentProps: {cliente: cliente}
@@ -116,7 +116,7 @@ export class ClientesPage implements OnInit {
         {
           text: 'Novo',
           handler: (data) => {
-            let cliente = new Cliente();
+            let cliente = new ClienteModel();
             this.loadModal(cliente);
           }
         }, {
@@ -128,8 +128,8 @@ export class ClientesPage implements OnInit {
             }
             this.wbService.presentLoading();
             this.wbService.getPessoaDocumento('cliente',data.documento).subscribe( response => {    
-              let cliente = new Cliente();
-              cliente.pessoa = (response.pessoa as Pessoa);
+              let cliente = new ClienteModel();
+              cliente.pessoa = (response.pessoa as PessoaModel);
               this.loadModal(cliente);
               this.wbService.dismissLoading();
               form.dismiss();

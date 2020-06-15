@@ -41,7 +41,7 @@ class CriarPessoasTable extends Migration
                 ->nullable(true);
             $table->unsignedBigInteger('empresa_id')
                 ->nullable(false);
-            $table->foreign('empresa_id', 'pressoas_empresas_fk')
+            $table->foreign('empresa_id')
                 ->references('id')
                 ->on('empresas')
                 ->onDelete('cascade');

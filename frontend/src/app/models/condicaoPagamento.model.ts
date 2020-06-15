@@ -1,4 +1,4 @@
-export class CondicaoPagamento {
+export class CondicaoPagamentoModel {
     public id : number;
     public descricao : string;
     public numero_parcelas : number;

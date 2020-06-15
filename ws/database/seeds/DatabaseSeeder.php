@@ -20,6 +20,13 @@ class DatabaseSeeder extends Seeder
             TabelasPrecosTableSeeder::class,
             PessoasTableSeeder::class,
             ClientesTableSeeder::class,
+            FornecedoresTableSeeder::class,
+            TransportadoresTableSeeder::class,
+            VeiculosTableSeeder::class,
+            MotoristasTableSeeder::class,
+            UnidadesMedidasTableSeeder::class,
+            ProdutosTableSeeder::class,
+            TiposMovimentacoesTableSeeder::class,
         ]);
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresa } from 'src/app/models/empresa';
+import { EmpresaModel } from 'src/app/models/empresa.model';
 import { AlertController, ModalController } from '@ionic/angular';
 import { WebService } from 'src/app/services/web.service';
 import { FormEmpresasComponent } from './form-empresas/form-empresas.component';
@@ -11,7 +11,7 @@ import { FormEmpresasComponent } from './form-empresas/form-empresas.component';
 })
 export class EmpresasPage implements OnInit {
   public onLoad : boolean = false;
-  public lista : Array<Empresa>;
+  public lista : Array<EmpresaModel>;
   public nextPage : string;
   public strSearch : string;
   public dataOrdem : string = "id|asc";
@@ -47,7 +47,7 @@ export class EmpresasPage implements OnInit {
     
     this.wbService.getEmpresas(params, nextPage).subscribe( response => {    
       if(!this.lista) this.lista = [];
-      this.lista = this.lista.concat(response.data as Array<Empresa>);
+      this.lista = this.lista.concat(response.data as Array<EmpresaModel>);
       this.nextPage = response.next_page_url;
     } , response => {
       if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
@@ -60,7 +60,7 @@ export class EmpresasPage implements OnInit {
   }
 
   async incluir() {
-    let empresa = new Empresa();
+    let empresa = new EmpresaModel();
     this.loadModal(empresa);
   }
 
@@ -94,7 +94,7 @@ export class EmpresasPage implements OnInit {
     await alert.present();
   }
 
-  async loadModal(empresa:Empresa, index?:number) {
+  async loadModal(empresa:EmpresaModel, index?:number) {
     const modal = await this.modalCtrl.create({
       component: FormEmpresasComponent,
       componentProps: {empresa: empresa}

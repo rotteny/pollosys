@@ -2,34 +2,66 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-      <ion-title>Transportadores</ion-title>
+      <ion-title>
+        Transportadores
+      </ion-title>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="ordenarAlertForm()">
+        <ion-icon name="filter-sharp"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="refreshData()" size="small">
+      <ion-icon name="refresh-sharp"></ion-icon>
+    </ion-fab-button>
+
     <ion-fab-button (click)="incluirAlertForm()" color="primary">
-      <ion-icon name="add-outline"></ion-icon>
+      <ion-icon name="add-sharp"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-searchbar placeholder="Todos" (ionInput)="filterData($event)" clearInput></ion-searchbar>
   
-  <ion-searchbar placeholder="Todos" animated="true"></ion-searchbar>
+  <div *ngIf="lista">
+    <ion-list>
+      <ion-item *ngFor="let transportador of lista; let idx = index" >
+        <ion-label>
+          <h2>{{transportador.pessoa.codigo}} - {{transportador.pessoa.razao_social}}</h2>
+          <h3 *ngIf="transportador.pessoa.pessoa=='F'">P{{transportador.pessoa?.pessoa}}: {{transportador.pessoa?.documento | mask: '000.000.000-00'}}</h3>
+          <h3 *ngIf="transportador.pessoa.pessoa=='J'">P{{transportador.pessoa?.pessoa}}: {{transportador.pessoa?.documento | mask: '00.000.000/0000-00'}}</h3> 
+          <h3>{{transportador.pessoa?.telefone | mask: '(00)00000-0000'}}, {{transportador.pessoa?.email}}</h3>
+        </ion-label>
+        <div>
+          <ion-button class="btn-secondary" (click)="loadModal(transportador, idx)">
+            <ion-icon name="person-sharp"></ion-icon>
+          </ion-button>
+          <ion-button class="btn-danger" (click)="excluirAlertConfirm(idx)">
+            <ion-icon name="trash-sharp" color="light"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
 
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <!-- Skeleton screen -->
+<div *ngIf="!lista">
   <ion-list>
-    <ion-item *ngFor="let item of [].constructor(1)" >
+    <ion-item *ngFor="let x of [1,2,3,4,5,6,7,8]">
       <ion-label>
-        <h2>Ana Cristina</h2>
-        <h3>98158-8121</h3>
+        <h2><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h2>
+        <h3><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h3>
+        <h3><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></h3>
       </ion-label>
-      <div>
-        <ion-button class="btn-secondary" (click)="atualiziarForm()">
-          <ion-icon name="person-sharp"></ion-icon>
-        </ion-button>
-        <ion-button class="btn-danger" (click)="excluirAlertConfirm()">
-          <ion-icon name="trash-sharp" color="light"></ion-icon>
-        </ion-button>
-      </div>
     </ion-item>
   </ion-list>
+</div>
+
 </ion-content>

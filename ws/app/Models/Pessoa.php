@@ -16,7 +16,7 @@ class Pessoa extends Model
     protected $fillable = [
         'documento', 'pessoa', 'inscricao_estadual', 'razao_social', 'nome_fantasia', 
         'endereco', 'complemento', 'bairro', 'cidade', 'estado', 'cep', 'email',
-        'telefone', 'codigo', 'empresa_id'
+        'telefone', 'codigo', 'empresa_id', 'ativo_id'
     ];
 
     /**
@@ -39,8 +39,16 @@ class Pessoa extends Model
     /**
      * Get the phone record associated with the user.
      */
-    // public function fornecedor()
-    // {
-    //     return $this->hasOne('App\Models\Fornecedor', 'id');
-    // }
+    public function fornecedor()
+    {
+        return $this->hasOne('App\Models\Fornecedor', 'id');
+    }
+
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function transportador()
+    {
+        return $this->hasOne('App\Models\Transportador', 'id');
+    }
 }

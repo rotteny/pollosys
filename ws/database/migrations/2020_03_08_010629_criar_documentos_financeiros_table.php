@@ -21,7 +21,7 @@ class CriarDocumentosFinanceirosTable extends Migration
                 ->default(1);
             $table->unsignedBigInteger('empresa_id')
                 ->nullable(false);
-            $table->foreign('empresa_id', 'documentos_financeiros_empresas_fk')
+            $table->foreign('empresa_id')
                 ->references('id')
                 ->on('empresas')
                 ->onDelete('cascade');

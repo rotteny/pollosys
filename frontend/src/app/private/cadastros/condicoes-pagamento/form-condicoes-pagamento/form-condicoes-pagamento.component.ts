@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { WebService } from 'src/app/services/web.service';
-import { CondicaoPagamento } from 'src/app/models/condicaoPagamento';
+import { CondicaoPagamentoModel } from 'src/app/models/condicaoPagamento.model';
 
 @Component({
   selector: 'app-form-condicoes-pagamento',
@@ -10,7 +10,7 @@ import { CondicaoPagamento } from 'src/app/models/condicaoPagamento';
   styleUrls: ['./form-condicoes-pagamento.component.scss'],
 })
 export class FormCondicoesPagamentoComponent implements OnInit {
-  public condicao: CondicaoPagamento = new CondicaoPagamento();
+  public condicao: CondicaoPagamentoModel = new CondicaoPagamentoModel();
   public fGroup: FormGroup;
 
   constructor(
@@ -61,7 +61,7 @@ export class FormCondicoesPagamentoComponent implements OnInit {
             this.wbService.presentLoading();
             if(this.condicao.id) {
               this.wbService.updateCondicaoPagamento(this.condicao.id,this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['condicaoPagamento'] as CondicaoPagamento);
+                this.modalCtrl.dismiss(response['success']['condicaoPagamento'] as CondicaoPagamentoModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();
@@ -74,7 +74,7 @@ export class FormCondicoesPagamentoComponent implements OnInit {
               });
             } else {
               this.wbService.addCondicaoPagamento(this.fGroup.value).subscribe( response => {
-                this.modalCtrl.dismiss(response['success']['condicaoPagamento'] as CondicaoPagamento);
+                this.modalCtrl.dismiss(response['success']['condicaoPagamento'] as CondicaoPagamentoModel);
                 this.wbService.dismissLoading();
               } , response => {
                 this.wbService.dismissLoading();

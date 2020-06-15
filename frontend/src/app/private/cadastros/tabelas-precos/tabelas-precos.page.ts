@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TabelaPreco } from 'src/app/models/tabelaPreco';
+import { TabelaPrecoModel } from 'src/app/models/tabelaPreco.model';
 import { AlertController, ModalController } from '@ionic/angular';
 import { WebService } from 'src/app/services/web.service';
 import { FormTabelasPrecosComponent } from './form-tabelas-precos/form-tabelas-precos.component';
@@ -11,7 +11,7 @@ import { FormTabelasPrecosComponent } from './form-tabelas-precos/form-tabelas-p
 })
 export class TabelasPrecosPage implements OnInit {
   public onLoad : boolean = false;
-  public lista : Array<TabelaPreco>;
+  public lista : Array<TabelaPrecoModel>;
   public nextPage : string;
   public strSearch : string;
   public dataOrdem : string = "id|asc";
@@ -44,7 +44,7 @@ export class TabelasPrecosPage implements OnInit {
     
     this.wbService.getTabelasPrecos(params, nextPage).subscribe( response => {    
       if(!this.lista) this.lista = [];
-      this.lista = this.lista.concat(response.data as Array<TabelaPreco>);
+      this.lista = this.lista.concat(response.data as Array<TabelaPrecoModel>);
       this.nextPage = response.next_page_url;
     } , response => {
       if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
@@ -57,7 +57,7 @@ export class TabelasPrecosPage implements OnInit {
   }
 
   async incluir() {
-    let preco = new TabelaPreco();
+    let preco = new TabelaPrecoModel();
     this.loadModal(preco);
   }
 
@@ -91,7 +91,7 @@ export class TabelasPrecosPage implements OnInit {
     await alert.present();
   }
 
-  async loadModal(preco:TabelaPreco, index?:number) {
+  async loadModal(preco:TabelaPrecoModel, index?:number) {
     const modal = await this.modalCtrl.create({
       component: FormTabelasPrecosComponent,
       componentProps: {preco: preco}

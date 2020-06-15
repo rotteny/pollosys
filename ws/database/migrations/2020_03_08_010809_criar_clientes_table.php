@@ -30,13 +30,13 @@ class CriarClientesTable extends Migration
                 ->references('id')
                 ->on('pessoas')
                 ->onDelete('cascade');
-            $table->foreign('documento_financeiro_id', 'clientes_documentos_financeiros_fk')
+            $table->foreign('documento_financeiro_id')
                 ->references('id')
                 ->on('documentos_financeiros');
-            $table->foreign('tabela_preco_id', 'clientes_tabelas_precos_fk')
+            $table->foreign('tabela_preco_id')
                 ->references('id')
                 ->on('tabelas_precos');
-            $table->foreign('condicao_pagamento_id', 'clientes_condicoes_paramento_fk')
+            $table->foreign('condicao_pagamento_id')
                 ->references('id')
                 ->on('condicoes_pagamento');
             $table->timestamps();

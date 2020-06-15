@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CondicaoPagamento } from 'src/app/models/condicaoPagamento';
+import { CondicaoPagamentoModel } from 'src/app/models/condicaoPagamento.model';
 import { AlertController, ModalController } from '@ionic/angular';
 import { WebService } from 'src/app/services/web.service';
 import { FormCondicoesPagamentoComponent } from './form-condicoes-pagamento/form-condicoes-pagamento.component';
@@ -11,7 +11,7 @@ import { FormCondicoesPagamentoComponent } from './form-condicoes-pagamento/form
 })
 export class CondicoesPagamentoPage implements OnInit {
   public onLoad : boolean = false;
-  public lista : Array<CondicaoPagamento>;
+  public lista : Array<CondicaoPagamentoModel>;
   public nextPage : string;
   public strSearch : string;
   public dataOrdem : string = "id|asc";
@@ -44,7 +44,7 @@ export class CondicoesPagamentoPage implements OnInit {
     
     this.wbService.getCodicoesPagamentos(params, nextPage).subscribe( response => {    
       if(!this.lista) this.lista = [];
-      this.lista = this.lista.concat(response.data as Array<CondicaoPagamento>);
+      this.lista = this.lista.concat(response.data as Array<CondicaoPagamentoModel>);
       this.nextPage = response.next_page_url;
     } , response => {
       if(response['error'] && response['error']['message']) this.wbService.messageAlertError(response['error']['message']);
@@ -57,7 +57,7 @@ export class CondicoesPagamentoPage implements OnInit {
   }
 
   async incluir() {
-    let condicao = new CondicaoPagamento();
+    let condicao = new CondicaoPagamentoModel();
     this.loadModal(condicao);
   }
 
@@ -91,7 +91,7 @@ export class CondicoesPagamentoPage implements OnInit {
     await alert.present();
   }
 
-  async loadModal(condicao:CondicaoPagamento, index?:number) {
+  async loadModal(condicao:CondicaoPagamentoModel, index?:number) {
     const modal = await this.modalCtrl.create({
       component: FormCondicoesPagamentoComponent,
       componentProps: {condicao: condicao}

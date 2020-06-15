@@ -1,4 +1,4 @@
-import { Usuario } from './../models/usuario';
+import { UsuarioModel } from '../models/usuario.model';
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(false);
   apiToken : string;
-  usuario : Usuario = new Usuario;
+  usuario : UsuarioModel = new UsuarioModel;
 
   constructor(
     private router: Router, 
@@ -32,7 +32,7 @@ export class AuthenticationService {
         this.apiToken = responses[0];
         this.authenticationState.next(true);
       }
-      if (responses[1]) this.usuario = (JSON.parse(responses[1]) as Usuario);
+      if (responses[1]) this.usuario = (JSON.parse(responses[1]) as UsuarioModel);
     })
   }
 

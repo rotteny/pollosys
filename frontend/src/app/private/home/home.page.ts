@@ -1,6 +1,5 @@
 import { WebService } from 'src/app/services/web.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

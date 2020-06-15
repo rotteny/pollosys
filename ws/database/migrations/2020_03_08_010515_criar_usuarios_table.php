@@ -28,7 +28,7 @@ class CriarUsuariosTable extends Migration
                 ->nullable(true);
             $table->timestamps();
             
-            $table->foreign('empresa_id', 'usuarios_empresas_fk')
+            $table->foreign('empresa_id')
                 ->references('id')
                 ->on('empresas')
                 ->onDelete('cascade');

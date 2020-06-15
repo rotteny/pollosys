@@ -1,4 +1,4 @@
-export class Pessoa {
+export class PessoaModel {
     public id : number;
     public codigo : string;
     public pessoa : string = 'F';
